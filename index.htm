@@ -175,6 +175,9 @@ stroke-width: 0;
 
 
 <p></p>
+
+ <div style='width:100%;text-align:right' >Download SVGsidekick .zip file <a href="javascript:downloadSite()" >SVGsidekick.com Files</a></div>
+
 <div id=emDiv></div>
 </center>
 
@@ -209,6 +212,7 @@ stroke-width: 0;
 <p></p> <b>Shadows</b> - Each element can be selected to include a drop-shadow.
 
 <p></p> <b>Save/Edit SVG Drawing</b> - You may save the drawing within an .svg drawing stored on your computer. It can then be edited in the future by placing the file in the textarea, under the 'Existing SVG' selection.
+<br><br><img align=left src="Images/rightClick.png" alt="" width="45" height="65" /> NOTE: Any element can be changed with  cursor over element &amp; mouse <b style=color:red>Right-Click</b>.
 
 </div
 <center>
@@ -246,9 +250,14 @@ stroke-width: 0;
 <div id=zoomHelpDiv style='background:white;visibility:hidden;position:fixed;top:60px;left:70%;width:300px;height:1px;border:1px solid blue;border-radius:5px;padding:10px;overflow:hidden'>
     <table style=width:100%><td style=width:90%; align=center><h7><b>Mousewheel Zoom</b></h7></td><td align=right><button onclick=closeZoomHelp()>X</button></td></table>
     <div style=text-align:justify>
+
     Select this to zoom into the drawing via the mousewheel.<p></p>When zoomed you may drag/drop any element: With the cursor
-    over the element <b>right-click</b> the mouse button, then drag the element.
-    <p></p>To close the Mousewheel zoom feature, click the red zoom button symbol.
+    over the element<img align=center src="Images/rightClick.png" alt="" width="45" height="65" /> <b>right-click</b> the mouse button, then drag the element.
+    <p></p>
+
+    To close the Mousewheel zoom feature, click the red zoom button symbol.
+
+      <img align=left src="Images/zoomRedButton.png" alt="" width="25" height="25" />
     </div>
 </div>
 </body>
@@ -743,9 +752,24 @@ function writeEM()
     em+="gm"
     em+="ail."
     em+="com"
-   emDiv.innerHTML=em +" &nbsp;&nbsp;<span style=color:blue>Last Update: 6/13/2018</span>"
+   emDiv.innerHTML=em +" &nbsp;&nbsp;<span style=color:blue>Last Update: 8/08/2018</span>"
 
 }
+function downloadSite()
+{
+
+var zip_file_path = "SiteZip/SVGsidekick.zip"
+var zip_file_name = "SVGsidekickSite"
+var a = document.createElement("a");
+document.body.appendChild(a);
+a.style = "display: none";
+a.href = zip_file_path;
+a.download = zip_file_name;
+a.click();
+document.body.removeChild(a);
+
+}
+
 </script>
 
 
