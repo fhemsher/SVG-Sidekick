@@ -77,11 +77,13 @@ onmousedown="return false;"
 	<script charset="UTF-8" type="text/javascript" src="AddElem/Path/drawPathButton.js"></script>
 	<script charset="UTF-8" type="text/javascript" src="js03_drag/dragPathPoint.js"></script>
 	<script charset="UTF-8" type="text/javascript" src="js03_drag/dragAddPath.js"></script>
+	<script charset="UTF-8" type="text/javascript" src="AddElem/Path/pathZoneMarker.js"></script>
 <div id=addElemPathEditFrameDiv style='padding:10px;border-radius:10px;position:fixed;visibility:hidden;width:1px;height:1px;overflow:hidden'><iframe id=addElemPathEditFrame style='border-width:0px;height:1px;overflow:hidden;'   scrolling='no' frameborder='0'   ></iframe></div>
 	<script charset="UTF-8" type="text/javascript" src="AddElem/Path/drawPathEdit.js"></script>
 	<script charset="UTF-8" type="text/javascript" src="AddElem/Path/drawPathEditButton.js"></script>
 	<script charset="UTF-8" type="text/javascript" src="js03_drag/dragPathPointEdit.js"></script>
 	<script charset="UTF-8" type="text/javascript" src="js03_drag/dragPathEdit.js"></script>
+	<script charset="UTF-8" type="text/javascript" src="AddElem/Path/pathEditZoneMarker.js"></script>
 <div id=addElemPgonFrameDiv style='padding:10px;border-radius:10px;position:fixed;visibility:hidden;width:1px;height:1px;overflow:hidden'><iframe id=addElemPgonFrame style='border-width:0px;height:1px;overflow:hidden;'   scrolling='no' frameborder='0'   ></iframe></div>
 <div id=addElemPgonEditFrameDiv style='padding:10px;border-radius:10px;position:fixed;visibility:hidden;width:1px;height:1px;overflow:hidden'><iframe id=addElemPgonEditFrame style='border-width:0px;height:1px;overflow:hidden;'   scrolling='no' frameborder='0'   ></iframe></div>
 	<script charset="UTF-8" type="text/javascript" src="AddElem/Pgon/drawPgon.js"></script>
@@ -178,7 +180,7 @@ stroke-width: 0;
 
  <div style='width:100%;text-align:right' >Download SVGsidekick .zip file <a href="javascript:downloadSite()" >SVGsidekick.com Files</a></div>
 
-<div id=emDiv></div>
+<div id=emDiv style='width:100%;text-align:right' ></div>
 </center>
 
 
@@ -191,13 +193,15 @@ stroke-width: 0;
 </div>
 <div id=helpDiv style='visibility:hidden;position:absolute;top:40px;left:10px;width:360px;height:1px;background:#ABCDEF;border:1px solid blue;border-radius:15px;padding:10px;color:midnightblue;overflow:hidden'>
 <table style=width:100%><td style=width:90%; align=center><h7><b>Simply Create Elegant SVG Drawings</b></h7></td><td align=right><button onclick=closeHelp()>X</button></td></table>
-<br><div style=text-align:justify> Each element includes its unique pane to set &amp; edit its specific values. Click on the element's button to use its pane to create and place the element in the drawing.
- After an element is created, it can be edited by moving the cursor over the element, then <b>right-click</b> the mouse  button.
-</div>
+
 <p></p>
 <b>Paths</b> - Both linear and curved paths can be created by clicking their points on the drawing. Drag any point to modify its shape.
 <br>Paths can also create 3d-like stroke:
-<center><img src="Images/pipe3d.png" alt="" /></center>
+<center><img src="Images/pipe3d.png" alt="" width="115" height="61" /></center>
+<br>Paths can include evenly-spaced markers along the path:
+<center><svg xmlns="http://www.w3.org/2000/svg" id="publishSVG" width="300" height="60" viewBox="0 0 300 60" style="cursor: default; touch-action: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><style xmlns="http://www.w3.org/1999/xhtml"></style><defs xmlns="http://www.w3.org/1999/xhtml"></defs>
+
+<g id="publishG"><g id="publishElemG" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" pointer-events="none"><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(33,23)rotate(57.52877418269262)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(40.761165618896484,34.64546203613281)rotate(-127.78653371949643)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(51.5299186706543,43.34810256958008)rotate(20.511912412806225)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(65.26084899902344,43.62485885620117)rotate(165.78722864430893)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(78.42819213867188,38.89059829711914)rotate(-21.754004011747273)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(91.61798858642578,34.218658447265625)rotate(164.49467862385941)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(105.46361541748047,33.25312042236328)rotate(11.145924748692435)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(118.62879180908203,37.90804672241211)rotate(-155.73611872524313)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(131.64048767089844,43.03495407104492)rotate(14.667089803707556)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(145.50650024414062,44.05995559692383)rotate(173.4154664731933)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(159.0949249267578,40.76487731933594)rotate(-17.814757045046537)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(172.3617401123047,36.29092025756836)rotate(161.4523200030853)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(185.81329345703125,32.43181228637695)rotate(-11.843642515807561)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(199.71221923828125,31.258516311645508)rotate(-175.87414335827106)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(213.20037841796875,34.800254821777344)rotate(22.91443277354848)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(225.7602996826172,40.97504425048828)rotate(-152.19894898728347)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(238.49392700195312,46.751407623291016)rotate(16.769713021059296)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(252.28749084472656,47.265995025634766)rotate(166.869269985224)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(264.9097595214844,41.36123275756836)rotate(-33.97558263619209)">▲</text><text font-size="15" text-anchor="middle" font-family="Arial Unicode MS" stroke-width="0.3" fill="#DC143C" stroke="black" transform="translate(275.83447265625,32.62757873535156)rotate(137.65995981044193)">▲</text><path fill="none" fill-opacity="0" stroke="#9400D3" stroke-width="2" d="M33,23L36.5,28.5C40,34,47,45,58.83336,44.66664C70.6667,44.33336,87.3333,32.66664,101.1667,32.83336C115,33,126,45,142.3334,44.33336C158.6666,43.66664,180.3334,30.33332,198.3334,31.16668C216.3334,32,230.6666,47,244.6666,48C258.667,49,272.333,36,279.167,29.5L286,23" linearD="M 33 23 L 54 56 L 104 21 L 137 57 L 202 17 L 245 62 L 286 23" markers="true" marker-unicode="25B2" marker-fill="#DC143C" marker-fontsize="15" marker-quantity="20"/></g></g></svg></center>
 
 
 <p></p><b>Symbols</b> - This a list of thirty(30) polygons that can be created and placed in the drawing.
@@ -752,7 +756,7 @@ function writeEM()
     em+="gm"
     em+="ail."
     em+="com"
-   emDiv.innerHTML=em +" &nbsp;&nbsp;<span style=color:blue>Last Update: 8/08/2018</span>"
+   emDiv.innerHTML=em +" &nbsp;&nbsp;<span style=color:blue>Last Update: 8/12/2018</span>"
 
 }
 function downloadSite()
