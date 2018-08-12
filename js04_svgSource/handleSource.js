@@ -137,16 +137,43 @@ function publishSVG()
 
             if(id=="zoomG")
             {
-                var zooomG=publishSVG.getElementsByTagName("g")[0]
-                zooomG.setAttribute("id","publishG")
-
+                var zooomG = publishSVG.getElementsByTagName("g")[0]
+                zooomG.setAttribute("id", "publishG")
 
                 zooomG.removeChild(zooomG.firstChild) //---bgImage--
                 zooomG.removeChild(zooomG.firstChild) //--grid---
-                var elemG=zooomG.firstChild
+                var elemG = zooomG.firstChild
                 elemG.removeAttribute("class")
 
+                elemG.setAttribute("id", "publishElemG")
+                for(var e = 0; e<elemG.childNodes.length; e++)
+                {
+                    var el = elemG.childNodes[e]
+                    el.removeAttribute("onmousedown");
+                    el.removeAttribute("style");
+                    el.removeAttribute("class");
+                    el.removeAttribute("id")
+                    el.removeAttribute("vector-effect")
+                    el.removeAttribute("pointer-events")
+                    el.removeAttribute("type")
+                    el.removeAttribute("cursor")
+                    el.removeAttribute("onclick")
+                    el.removeAttribute("name")
+                    el.removeAttribute("email")
+                    el.removeAttribute("category")
+                    el.removeAttribute("parentId")
+                    el.removeAttribute("utcms")
+                    el.removeAttribute("nativeheight")
+                    el.removeAttribute("nativewidth")
+                    el.removeAttribute("myscale")
+                    var rects = el.getElementsByTagName("rect")
+                    if(rects.length>0)
+                    {
+                        var coverRect = rects[rects.length-1]
+                        coverRect.removeAttribute("onmousedown")
+                    }
 
+                }
             }
         }
     }
