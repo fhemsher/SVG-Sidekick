@@ -13,14 +13,14 @@ box-shadow: 4px 4px 5px #888;
 -->
 </style>
 </head>
-<body   onload= writePathEditColorSelection();sendSize()  style='border-radius:10px;border:2px solid lightblue;background-color:transparent;padding:0;margin:0;font-family:arial'>
+<body   onload= writePathEditColorSelection();writePathEditMarkerOptions();sendSize()  style='border-radius:10px;border:2px solid lightblue;background-color:transparent;padding:0;margin:0;font-family:arial'>
 <table id=topTable style='background-color:orange;padding:3px;width:100%;'><tr><td style='width:80%;' align=center><span id=editSpan>Edit Path&nbsp;</span> <span id=rightAngleSpan><b>L</b>:<input title="right angle path" type=checkbox id=drawPathEditRightAngleCheck />[L]</span>
 </td><td align=right><button  onClick=parent.closeDrawPathEdit()>X</button>[X]</td></tr></table>
 <table  style=border-radius:10px;width:300px;background-color:gainsboro>
 
 
 <tr style=background-color:orange>
-<td align=center ><span id=drawPathEditStrokeBg >Stroke Color:</span>
+<td align=center >Stroke <span id=drawPathEditStrokeBg >Color:</span>
 <select title="Stroke Color" onChange=parent.showDrawPathEditStrokeBg() id=drawPathEditStrokeSelect></select>
 width:
   <select onChange=parent.drawPathEditStrokeWidthSelected() id=drawPathEditStrokeWidthSelect>
@@ -69,6 +69,44 @@ Dash[D]:<input type=checkbox id=drawPathEditStrokeDashCheck onClick=parent.drawP
 
 </td>
 </tr>
+<tr style=background-color:orange>
+<td align=center >
+Path Markers: <input title="Add markers along path" type="checkbox" id=pathEditZoneMarkerCheck onClick=parent.pathEditZoneMarkerChecked() />
+<div id=pathEditZoneMarkerDiv style=visibility:hidden>
+ 	Marker <span id=pathEditZoneMarkerFillBg >Color:</span>
+		<select  onChange=parent.pathEditZoneMarkerFillColorSelected()  id=pathEditZoneMarkerFillColorSelect><option title="none" >0</option></select><br>
+ # of Markers:<select id=pathEditZoneMarkerQuantitySelect onchange=parent.pathEditZoneMarkerQuantitySelected()  >
+ <option>5</option>
+ <option>10</option>
+ <option>15</option>
+ <option>20</option>
+ <option>25</option>
+ <option>30</option>
+ <option>40</option>
+ <option selected >50</option>
+ <option>60</option>
+ <option>80</option>
+ <option>100</option>
+
+ </select>
+ Size: <select id=pathEditZoneMarkerFontSizeSelect onchange=parent.pathEditZoneMarkerFontSizeSelected()  >
+  <option>5</option>
+  <option>10</option>
+  <option selected>15</option>
+ <option>20</option>
+  <option>25</option>
+  <option>30</option>
+
+ </select><br>
+Choose Marker: <select name="" id="pathEditZoneMarkerSelect" onChange=parent.pathEditZoneMarkerSelected()>
+ <option >Marker</option></select>
+
+    </div>
+
+
+</td></tr>
+
+
 <tr style=background-color:orange>
 <td align=center >
 
@@ -171,6 +209,7 @@ function writePathEditColorSelection()
 		option.title=name+" "+myColor
 
 		option.text=k
+                pathEditZoneMarkerFillColorSelect.appendChild(option)
 
 
 		var option=document.createElement("OPTION")
@@ -200,9 +239,14 @@ function writePathEditColorSelection()
 
 
 	}
-	drawPathEditStrokeSelect.selectedIndex=4
+	drawPathEditStrokeSelect.selectedIndex=234 
 	var clr=drawPathEditStrokeSelect.options[drawPathEditStrokeSelect.selectedIndex].value
 	drawPathEditStrokeBg.style.backgroundColor=clr
+         	pathEditZoneMarkerFillColorSelect.selectedIndex=140
+	var clr=pathEditZoneMarkerFillColorSelect.options[pathEditZoneMarkerFillColorSelect.selectedIndex].value
+	pathEditZoneMarkerFillBg.style.backgroundColor=clr
+
+
 }
 
 function sendSize()
@@ -216,5 +260,51 @@ function sendSize()
 
 
 }
+
+//////////////////===============path markers=============================
+
+var markerEditArray =["2727","2949","2217","22C7","27DF","2981","29EB","2A53","2B18","2B9D","25A0", "25A3", "25A4", "25A5", "25A6", "25A7", "25A8", "25A9", "25B0",  "25B2", "25B3",   "25C6", "25C7", "25C8", "25C9",  "25CD", "25CE", "25CF", "25D0", "25D1", "25D2", "25D3",   "25D8", "25D9",  "25E7", "25E8", "25E9", "25EA", "25EB", "25EC", "25ED", "25EE",  "25FB", "25FC", "2BC1", "2BC2", "2BC3", "2BC4", "2BC5", "2BC6",    "2BCC", "2BCD", "2BCE", "2BCF", "2BD0"]
+
+function writePathEditMarkerOptions()
+{
+    //var fontSize = 30
+    //var strokeFactor = .02
+    //var strokeWidth = strokeFactor*fontSize
+
+   // var svg = d3.select("#sizerSVG")
+    for(var k = 0; k<markerEditArray.length; k++)
+    {
+
+        var unicode = markerEditArray[k]
+        //IconUnicode.push(unicode)
+        var code = parseInt(unicode, 16)
+        /*
+        var icon = svg.append("text")
+        .attr("id", "icon_"+unicode)
+        .attr("font-size", fontSize)
+        .attr("font-family", "Arial Unicode MS")
+        .attr("stroke-width", strokeWidth)
+        .attr("fill", "red")
+        .attr("stroke", "black")
+        .text(String.fromCharCode(code))
+
+        var sizeMe = document.getElementById("icon_"+unicode)
+        var bb = sizeMe.getBBox()
+        var centerX = bb.x+.5*bb.width
+        var centerY = bb.y+.5*bb.height
+
+        icon.attr("centerX", centerX)
+        icon.attr("centerY", centerY)
+         */
+          var option=document.createElement("option")
+          option.style.fontSize="25px"
+          option.value=unicode
+          option.title=unicode
+          option.text=String.fromCharCode(code)
+          pathEditZoneMarkerSelect.appendChild(option)
+         }
+}
+
+
 </script>
 </html>

@@ -1,4 +1,3 @@
-
 var PathClosedEdit = false;
 var PathDecoupledEdit = false;
 var PathFinishedEdit = false;
@@ -72,6 +71,23 @@ function resetPathEdit()
             activeElem.removeAttribute("opacity")//--via smoothPath request---
             ActiveElem = null
     }
+    if(PathEditZoneMarker==true)
+    {
+        //---remove previous---
+        for(var k = 0; k<ZoneMarkerEditArray.length; k++)
+        {
+            var marker = ZoneMarkerEditArray[k]
+            domActiveElemG.removeChild(marker)
+        }
+        cw.pathEditZoneMarkerDiv.style.visibility = "hidden"
+        PathEditZoneMarker = false
+
+        cw.pathEditZoneMarkerSelect.selectedIndex = 0
+
+        ZoneMarkerEditArray =[]
+        cw.pathEditZoneMarkerCheck.checked = false
+    }
+
     var myFrame = document.getElementById('addElemPathEditFrame')
     addElemPathFrameDiv.style.height = addElemPathFrameDiv.scrollHeight+"px"
     myFrame.height = addElemPathEditFrameDiv.scrollHeight
@@ -84,15 +100,30 @@ function resetPathEdit()
 function closeDrawPathEdit()
 {
     var cw = addElemPathEditCw
-   
+
     mySVG.removeAttribute("onclick")
     closeIframe("addElemPathEdit")
     FillChange = false
     DrawPathStart = false
-   DrawPathEdit = false
+    DrawPathEdit = false
     var cw = addElemPathEditCw
     var elemTimelinded = false
+    if(PathEditZoneMarker==true)
+    {
+        //---remove previous---
+        for(var k = 0; k<ZoneMarkerEditArray.length; k++)
+        {
+            var marker = ZoneMarkerEditArray[k]
+            domActiveElemG.removeChild(marker)
+        }
+        cw.pathEditZoneMarkerDiv.style.hidden = "none"
+        PathEditZoneMarker = false
 
+        cw.pathEditZoneMarkerSelect.selectedIndex = 0
+
+        ZoneMarkerEditArray =[]
+        cw.pathEditZoneMarkerCheck.checked = false
+    }
     DragPointArray =[]
     PathPointArray =[]
     Point = 0;
@@ -144,8 +175,8 @@ function closeDrawPathEdit()
 
     if(document.getElementById("activeElem"))
         domActiveElemG.removeChild(document.getElementById("activeElem"))
-        if(document.getElementById("drawPathSmooth"))
-        domActiveElemG.removeChild(document.getElementById("drawPathSmooth"))
+        if(document.getElementById("drawPathEditSmooth"))
+        domActiveElemG.removeChild(document.getElementById("drawPathEditSmooth"))
         if(document.getElementById("dragCircleG"))
     {
         domActiveElemG.appendChild(domDrawX)
@@ -154,22 +185,21 @@ function closeDrawPathEdit()
 
     }
 
-     if(PathDeleted == false)
-     {
-         var elemObjEdit = document.getElementById(DrawPathEditId)
+    if(PathDeleted == false)
+    {
+        var elemObjEdit = document.getElementById(DrawPathEditId)
         elemObjEdit.style.display = ""
 
-
-     }
-      PathDeleted=false
-   // DrawPathEditId = null
+    }
+    PathDeleted = false
+    // DrawPathEditId = null
 
     ActiveElem = null
-   ActivePathCopy = false
-   Dragging=false
-   CopyPathArray =[]
-  cw.editSpan.innerHTML="Edit Path&nbsp;"
-  cw.drawPathEditDeleteButton.style.visibility="visible"
+
+    Dragging = false
+
+    cw.editSpan.innerHTML = "Edit Path&nbsp;"
+    cw.drawPathEditDeleteButton.style.visibility = "visible"
     //---detach point drag to mySVG---
     mySVG.removeAttribute("onmousemove")
     mySVG.removeAttribute("onmousedown")
@@ -381,6 +411,7 @@ function undoDrawPathEdit()
                 var line = d3.line().curve(d3.curveBasis);
                 DrawPathEditSmooth.data([PathPointArray])
                 DrawPathEditSmooth.attr('d', line);
+
             }
 
             if((segs-1)==1)
@@ -486,6 +517,7 @@ function encloseDrawPathEdit()
         {
             var line = d3.line().curve(d3.curveBasisClosed);
             DrawPathEditSmooth.attr("d", line)
+
         }
 
     }
@@ -514,44 +546,43 @@ function reopenDrawPathEdit()
     {
         var line = d3.line().curve(d3.curveBasis);
         DrawPathEditSmooth.attr("d", line)
+
     }
 }
 
 //---button or [F]---
 function finishDrawPathEdit()
 {
-
-    if(ActivePathCopy==false)
-    {
     var cw = addElemPathEditCw
+
     DrawPathEdit = false
     var elemObj = document.getElementById(DrawPathEditId)
 
-       var fill = cw.drawPathEditFillSelect.options[cw.drawPathEditFillSelect.selectedIndex].value
+    var fill = cw.drawPathEditFillSelect.options[cw.drawPathEditFillSelect.selectedIndex].value
     var fillOpacity = cw.drawPathEditOpacitySelect.options[cw.drawPathEditOpacitySelect.selectedIndex].value
     var strokeOpacity = cw.drawPathEditStrokeOpacitySelect.options[cw.drawPathEditStrokeOpacitySelect.selectedIndex].value
 
     var finishedElem = activeElem.cloneNode(true)
-
-    if(EditPathFill.indexOf("url")!=-1&&cw.drawPathEditFillSelect.selectedIndex==0)
+    if(domActiveElemG.getAttribute("transform"))
+        finishedElem.setAttribute("transform", domActiveElemG.getAttribute("transform"))
+        if(EditPathFill.indexOf("url")!=-1&&cw.drawPathEditFillSelect.selectedIndex==0)
     {
-        finishedElem.setAttribute("fill",EditPathFill)
-        finishedElem.setAttribute("fill-opacity",EditPathFillOpacity)
+        finishedElem.setAttribute("fill", EditPathFill)
+        finishedElem.setAttribute("fill-opacity", EditPathFillOpacity)
     }
     else
     {
-        finishedElem.setAttribute("fill",fill)
-        finishedElem.setAttribute("fill-opacity",fillOpacity)
+        finishedElem.setAttribute("fill", fill)
+        finishedElem.setAttribute("fill-opacity", fillOpacity)
     }
-
 
     if(DrawPathType=="basis")
     {
 
         finishedElem.setAttribute("linearD", activeElem.getAttribute("d"))
-        finishedElem.setAttribute("d", drawPathSmooth.getAttribute("d"))
+        finishedElem.setAttribute("d", drawPathEditSmooth.getAttribute("d"))
         finishedElem.setAttribute("type", "basis")
-        domActiveElemG.removeChild(drawPathSmooth)
+        domActiveElemG.removeChild(drawPathEditSmooth)
 
     }
     else
@@ -561,7 +592,7 @@ function finishDrawPathEdit()
 
     }
 
-    finishedElem.setAttribute("stroke-opacity", strokeOpacity)    
+    finishedElem.setAttribute("stroke-opacity", strokeOpacity)
     finishedElem.removeAttribute("opacity")
     //finishedElem.setAttribute("stroke-opacity",opacityStroke)
     finishedElem.setAttribute("id", DrawPathEditId)
@@ -578,65 +609,88 @@ function finishDrawPathEdit()
     domElemG.insertBefore(finishedElem, elemObj)
     UpdateThisPath = finishedElem
     domElemG.removeChild(elemObj)
+
+    if(PathEditZoneMarker)
+    {
+
+        var unicode = cw.pathEditZoneMarkerSelect.options[cw.pathEditZoneMarkerSelect.selectedIndex].value
+        var fill = cw.pathEditZoneMarkerFillColorSelect.options[cw.pathEditZoneMarkerFillColorSelect.selectedIndex].value
+        var fontSize = +cw.pathEditZoneMarkerFontSizeSelect.options[cw.pathEditZoneMarkerFontSizeSelect.selectedIndex].text
+        var quantity = +cw.pathEditZoneMarkerQuantitySelect.options[cw.pathEditZoneMarkerQuantitySelect.selectedIndex].text
+
+        finishedElem.setAttribute("markers", "true")
+        finishedElem.setAttribute("marker-unicode", unicode)
+        finishedElem.setAttribute("marker-fill", fill)
+        finishedElem.setAttribute("marker-fontsize", fontSize)
+        finishedElem.setAttribute("marker-quantity", quantity)
+
+        var oldMarkers = document.getElementsByClassName(DrawPathEditId)
+        for(var k = oldMarkers.length-1; k>=0; k--)
+        {
+            var oldMarker = oldMarkers[k]
+            domElemG.removeChild(oldMarker)
+        }
+
+        screenPath(finishedElem) //--remove transform, recalc points---
+        if(DrawPathType=="basis")
+        {
+            screenPath(activeElem)
+            finishedElem.setAttribute("linearD", activeElem.getAttribute("d"))
+        }
+        var direction = -1
+
+        var pathEditLen = finishedElem.getTotalLength()
+
+        var seg = (pathEditLen/quantity)
+        for (var k = 0; k<ZoneMarkerEditArray.length; k++)
+        {
+            direction *= -1;
+            var segLen = k*seg
+
+            var p1 = finishedElem.getPointAtLength(segLen),
+            p2 = finishedElem.getPointAtLength((segLen)+direction),
+            angle = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+
+            var marker = ZoneMarkerEditArray[k]
+            marker.setAttribute("transform", "translate(" + p1.x + "," + p1.y + ")rotate(" + angle + ")");
+            marker.setAttribute("class", DrawPathEditId)
+            domElemG.insertBefore(marker, finishedElem)
+
+        }
+
+        ZoneMarkerEditArray =[]
+        PathEditZoneMarker = false
+        cw.pathEditZoneMarkerCheck.checked = false
+
     }
     else
     {
-       for(var m=0;m<CopyPathArray.length;m++)
-       {
-          var copy=CopyPathArray[m]
-          var id=copy.id
-          copy.setAttribute("onmousedown","startPathDrawEdit("+id+",evt)")
-          copy.style.cursor = "default"
-
-          var sCTM = copy.getCTM()
-        var svgRoot = copy.ownerSVGElement
-
-        var segList = copy.pathSegList
-        var segs = segList.numberOfItems
-        //---change segObj values
-        for(var k = 0; k<segs; k++)
+        var dumpMarkers = document.getElementsByClassName(DrawPathEditId)
+        for(var k = 0; k<dumpMarkers.length; k++)
         {
-            var segObj = segList.getItem(k)
+            var dump = dumpMarkers[k]
+            domElemG.removeChild(dump)
 
-            if(segObj.x && segObj.y)
-            {
-                var mySVGPoint = svgRoot.createSVGPoint();
-                mySVGPoint.x = segObj.x
-                mySVGPoint.y = segObj.y
-                mySVGPointTrans = mySVGPoint.matrixTransform(sCTM)
-                segObj.x = mySVGPointTrans.x
-                segObj.y = mySVGPointTrans.y
-
-            }
-
-            if(segObj.x1 && segObj.y1)
-            {
-                var mySVGPoint1 = svgRoot.createSVGPoint();
-                mySVGPoint1.x = segObj.x1
-                mySVGPoint1.y = segObj.y1
-                mySVGPointTrans1 = mySVGPoint1.matrixTransform(sCTM)
-                segObj.x1 = mySVGPointTrans1.x
-                segObj.y1 = mySVGPointTrans1.y
-
-            }
-            if(segObj.x2 && segObj.y2)
-            {
-                var mySVGPoint2 = svgRoot.createSVGPoint();
-                mySVGPoint2.x = segObj.x2
-                mySVGPoint2.y = segObj.y2
-                mySVGPointTrans2 = mySVGPoint2.matrixTransform(sCTM)
-                segObj.x2 = mySVGPointTrans2.x
-                segObj.y2 = mySVGPointTrans2.y
-
-            }
         }
-
-        copy.removeAttribute("transform")
-
-       }
-
+        finishedElem.removeAttribute("markers")
+        finishedElem.removeAttribute("marker-unicode")
+        finishedElem.removeAttribute("marker-fill")
+        finishedElem.removeAttribute("marker-fontsize")
+        finishedElem.removeAttribute("marker-quantity")
 
     }
+    domActiveElemG.removeAttribute("transform")
+
+    screenPath(finishedElem)
+    if(DrawPathType=="basis")
+    {
+
+        finishedElem.setAttribute("linearD", activeElem.getAttribute("d"))
+    }
+
+    domActiveElemG.removeChild(activeElem)
+    activeElem = null
+
     closeDrawPathEdit()
 
 }

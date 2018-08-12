@@ -27,7 +27,7 @@ box-shadow: 4px 4px 5px #888;
 </tr>
 
 <tr >
-<td align=center ><span id=drawEllipseStrokeBg >Stroke Color:</span>
+<td align=center >Stroke <span id=drawEllipseStrokeBg >Color:</span>
 <select  title="Stroke Color" onChange=parent.showDrawEllipseStrokeBg() id=drawEllipseStrokeSelect></select>
 width:
   <select onChange=parent.drawEllipseStrokeWidthSelected() id=drawEllipseStrokeWidthSelect>
@@ -54,7 +54,7 @@ Dash:<input type=checkbox id=drawEllipseStrokeDashCheck onClick=parent.drawEllip
 </tr>
 
 <tr>
-<td align=center ><span id=drawEllipseFillBg >Fill Color:</span>
+<td align=center >Fill <span id=drawEllipseFillBg >Color:</span>
 <select  title="Fill Opacity" onChange=parent.showDrawEllipseFillBg() id=drawEllipseFillSelect></select>
 Opacity:
   <select onChange=parent.drawEllipseOpacitySelected() id=drawEllipseOpacitySelect>
@@ -121,6 +121,8 @@ function writeEllipseColorSelection()
 		option.title=name+" "+myColor
 
 		option.text=k
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
 
 
 		var option=document.createElement("OPTION")
@@ -129,6 +131,8 @@ function writeEllipseColorSelection()
 		option.title=name+" "+myColor
 
 		option.text=k
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
         drawEllipseStrokeSelect.appendChild(option)
 
        	var option=document.createElement("OPTION")
@@ -136,6 +140,8 @@ function writeEllipseColorSelection()
 		option.value=myColor
 		option.title=name+" "+myColor
 		option.text=k
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
 
 
 		var option=document.createElement("OPTION")
@@ -144,13 +150,15 @@ function writeEllipseColorSelection()
 		option.title=name+" "+myColor
 
 		option.text=k
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
         drawEllipseFillSelect.appendChild(option)
 
 
 
 
 	}
-	drawEllipseStrokeSelect.selectedIndex=44
+	drawEllipseStrokeSelect.selectedIndex=234
 	var clr=drawEllipseStrokeSelect.options[drawEllipseStrokeSelect.selectedIndex].value
 	drawEllipseStrokeBg.style.backgroundColor=clr
 }

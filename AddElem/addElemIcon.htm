@@ -51,45 +51,45 @@ Unicode Type:<select onchange=unicodeTypeSelected() id="unicodeTypeSelect">
 <td valign=center align=center>
  <div style=text-align:left><span id=editIconSpan>Select icon button, choose color/size, then click on drawing to plant it.</span></div><p></p>
 
-	<span id=drawIconFillBg >Color:</span>
-		<select  onChange=showDrawIconFillBg()  id=drawIconFillColorSelect><option title="none" >0</option></select>
+    <span id=drawIconFillBg >Color:</span>
+        <select  onChange=showDrawIconFillBg()  id=drawIconFillColorSelect><option title="none" >0</option></select>
 
-	Size:<select id=drawIconFontSizeSelect  >
-	<option>1</option>
-	<option>2</option>
-	<option>3</option>
-	<option>4</option>
-	<option>5</option>
-	<option>10</option>
-	<option>15</option>
-	<option>20</option>
-	<option>25</option>
-	<option selected>30</option>
-	<option>35</option>
-	<option>40</option>
-	<option>45</option>
-	<option>50</option>
-	<option>60</option>
-	<option>70</option>
-	<option>80</option>
-	<option>90</option>
-	<option>100</option>
-	<option>150</option>
-	<option>200</option>
-	<option>250</option>
-	<option>300</option>
-	<option>350</option>
-	<option>400</option>
-	<option>450</option>
-	<option>500</option>
-	</select>
+    Size:<select id=drawIconFontSizeSelect  >
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>10</option>
+    <option>15</option>
+    <option>20</option>
+    <option>25</option>
+    <option selected>30</option>
+    <option>35</option>
+    <option>40</option>
+    <option>45</option>
+    <option>50</option>
+    <option>60</option>
+    <option>70</option>
+    <option>80</option>
+    <option>90</option>
+    <option>100</option>
+    <option>150</option>
+    <option>200</option>
+    <option>250</option>
+    <option>300</option>
+    <option>350</option>
+    <option>400</option>
+    <option>450</option>
+    <option>500</option>
+    </select>
 </td>
 </tr>
 
 
 
 <tr  align=center>
-	<td align=left>
+    <td align=left>
  <center><button disabled id=undoButton onClick=parent.undoIconButtonClicked()>undo</button></center>
 Toggle undo button to remove most recent planted icon(s).<p></p>
 
@@ -101,7 +101,7 @@ Toggle undo button to remove most recent planted icon(s).<p></p>
  <center>
      <div id=topBotDiv style='visibility:hidden'>
      <button id=drawIconTopButton style=background:white;font-size:120%;font-weight:bold;color:maroon  title='Move to top' onClick=parent.topDrawIcon()>&#x21E7;</button>
-	<button id=drawIconBotButton style=background:white;font-size:120%;font-weight:bold;color:maroon;   title='Move to bottom' onClick=parent.botDrawIcon()>&#x21E9;</button>
+    <button id=drawIconBotButton style=background:white;font-size:120%;font-weight:bold;color:maroon;   title='Move to bottom' onClick=parent.botDrawIcon()>&#x21E9;</button>
      </div>
 <button onClick=parent.closeDrawIcon() >finish</button></center>
 
@@ -144,7 +144,7 @@ function showDrawIconFillBg()
 {
 
    	var clr=drawIconFillColorSelect.options[drawIconFillColorSelect.selectedIndex].value
-	drawIconFillBg.style.backgroundColor=clr
+    drawIconFillBg.style.backgroundColor=clr
 
 
 }
@@ -160,31 +160,33 @@ function showDrawIconFillBg()
 function writeIconColorSelection()
 {
    var DrawColors=parent.clrArray
-	for(var k=1;k<DrawColors.length;k++)
-	{
-		var name=DrawColors[k][0]
-		var myColor=DrawColors[k][1]
-		var option=document.createElement("OPTION")
-		option.style.backgroundColor=myColor
-		option.value=myColor
-		option.title=name+" "+myColor
+    for(var k=0;k<DrawColors.length;k++)
+    {
+        var name=DrawColors[k][0]
+        var myColor=DrawColors[k][1]
+        var option=document.createElement("OPTION")
+        option.style.backgroundColor=myColor
+        option.value=myColor
+        option.title=name+" "+myColor
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
 
-		option.text=k+1
-		drawIconFillColorSelect.appendChild(option)
+        option.text=k+1
+        drawIconFillColorSelect.appendChild(option)
         /*
-		var option=document.createElement("OPTION")
-		option.style.backgroundColor=myColor
-		option.value=myColor
-		option.title=name+" "+myColor
+        var option=document.createElement("OPTION")
+        option.style.backgroundColor=myColor
+        option.value=myColor
+        option.title=name+" "+myColor
 
-		option.text=k+1
+        option.text=k+1
         drawIconStrokeColorSelect.appendChild(option)
         */
-	}
-	drawIconFillColorSelect.selectedIndex=40
+    }
+    drawIconFillColorSelect.selectedIndex=234
   //	drawIconStrokeColorSelect.selectedIndex=23
-	var clr=drawIconFillColorSelect.options[drawIconFillColorSelect.selectedIndex].value
-	drawIconFillBg.style.backgroundColor=clr
+    var clr=drawIconFillColorSelect.options[drawIconFillColorSelect.selectedIndex].value
+    drawIconFillBg.style.backgroundColor=clr
   //	var clr=drawIconStrokeColorSelect.options[drawIconStrokeColorSelect.selectedIndex].value
   //	drawIconStrokeBg.style.backgroundColor=clr
 }

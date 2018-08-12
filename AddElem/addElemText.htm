@@ -201,6 +201,8 @@ function writeTextColorSelection()
 		option.title=name+" "+myColor
 
 		option.text=k
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
          drawTextStrokeSelect.appendChild(option)
 
 		var option=document.createElement("OPTION")
@@ -209,9 +211,11 @@ function writeTextColorSelection()
 		option.title=name+" "+myColor
 
 		option.text=k
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
         drawTextFillSelect.appendChild(option)
 	}
-	drawTextFillSelect.selectedIndex=143
+	drawTextFillSelect.selectedIndex=1
 	var clr=drawTextFillSelect.options[drawTextFillSelect.selectedIndex].value
 	drawTextFillBg.style.backgroundColor=clr
 }

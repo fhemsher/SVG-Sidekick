@@ -27,7 +27,7 @@ box-shadow: 4px 4px 5px #888;
 </tr>
 
 <tr>
-<td align=center ><span id=drawCircleStrokeBg >Stroke Color:</span>
+<td align=center >Stroke <span id=drawCircleStrokeBg >Color:</span>
 <select  title="Stroke Color" onChange=parent.showDrawCircleStrokeBg() id=drawCircleStrokeSelect></select>
 width:
   <select onChange=parent.drawCircleStrokeWidthSelected() id=drawCircleStrokeWidthSelect>
@@ -53,7 +53,7 @@ Dash:<input type=checkbox id=drawCircleStrokeDashCheck onClick=parent.drawCircle
 </tr>
 
 <tr>
-<td align=center ><span id=drawCircleFillBg >Fill Color:</span>
+<td align=center >Fill <span id=drawCircleFillBg >Color:</span>
 <select  title="Fill Opacity" onChange=parent.showDrawCircleFillBg() id=drawCircleFillSelect></select>
 Opacity:
   <select onChange=parent.drawCircleOpacitySelected() id=drawCircleOpacitySelect>
@@ -95,7 +95,6 @@ Opacity:
 
 </body>
 <script>
-
 function writeCircleColorSelection()
 {
    var DrawColors=parent.clrArray
@@ -107,6 +106,8 @@ function writeCircleColorSelection()
 		option.style.backgroundColor=myColor
 		option.value=myColor
 		option.title=name+" "+myColor
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
 
 		option.text=k
 
@@ -115,6 +116,8 @@ function writeCircleColorSelection()
 		option.style.backgroundColor=myColor
 		option.value=myColor
 		option.title=name+" "+myColor
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
 
 		option.text=k
         drawCircleStrokeSelect.appendChild(option)
@@ -123,6 +126,8 @@ function writeCircleColorSelection()
 		option.style.backgroundColor=myColor
 		option.value=myColor
 		option.title=name+" "+myColor
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
 		option.text=k
 
 
@@ -130,6 +135,8 @@ function writeCircleColorSelection()
 		option.style.backgroundColor=myColor
 		option.value=myColor
 		option.title=name+" "+myColor
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
 
 		option.text=k
         drawCircleFillSelect.appendChild(option)
@@ -138,10 +145,11 @@ function writeCircleColorSelection()
 
 
 	}
-	drawCircleStrokeSelect.selectedIndex=44
+	drawCircleStrokeSelect.selectedIndex=234
 	var clr=drawCircleStrokeSelect.options[drawCircleStrokeSelect.selectedIndex].value
 	drawCircleStrokeBg.style.backgroundColor=clr
 }
+
 
 
 function sendSize()
@@ -157,7 +165,7 @@ function sendSize()
      if(parent.EditCircle==true)
         parent.setEditCircle()
         else
-       parent.startCircleDraw()     
+       parent.startCircleDraw()
 
 }
 

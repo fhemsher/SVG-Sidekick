@@ -27,7 +27,7 @@ box-shadow: 4px 4px 5px #888;
 </tr>
 
 <tr>
-<td align=center ><span id=drawRectStrokeBg >Stroke Color:</span>
+<td align=center >Stroke <span id=drawRectStrokeBg >Color:</span>
 <select  title="Stroke Color" onChange=parent.showDrawRectStrokeBg() id=drawRectStrokeSelect></select>
 width:
   <select onChange=parent.drawRectStrokeWidthSelected() id=drawRectStrokeWidthSelect>
@@ -71,7 +71,7 @@ Dash:<input type=checkbox id=drawRectStrokeDashCheck onClick=parent.drawRectStro
 &nbsp; &nbsp; Rounded Corners:<input type=checkbox id=drawRectStrokeRoundCheck onClick=parent.drawRectStrokeRoundChecked() />
 </td></tr>
 <tr>
-<td align=center ><span id=drawRectFillBg >Fill Color:</span>
+<td align=center >Fill <span id=drawRectFillBg >Color:</span>
 <select  title="Fill Opacity" onChange=parent.showDrawRectFillBg() id=drawRectFillSelect></select>
 Opacity:
   <select onChange=parent.drawRectOpacitySelected() id=drawRectOpacitySelect>
@@ -138,6 +138,8 @@ function writeRectColorSelection()
 		option.value=myColor
 		option.title=name+" "+myColor
 		option.text=k
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
 
 
 		var option=document.createElement("OPTION")
@@ -146,6 +148,8 @@ function writeRectColorSelection()
 		option.title=name+" "+myColor
 
 		option.text=k
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
         drawRectStrokeSelect.appendChild(option)
 
 
@@ -154,6 +158,8 @@ function writeRectColorSelection()
 		option.value=myColor
 		option.title=name+" "+myColor
 		option.text=k
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
 
 
 		var option=document.createElement("OPTION")
@@ -162,12 +168,14 @@ function writeRectColorSelection()
 		option.title=name+" "+myColor
 
 		option.text=k
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
         drawRectFillSelect.appendChild(option)
 
 
 
 	}
-	drawRectStrokeSelect.selectedIndex=44
+	drawRectStrokeSelect.selectedIndex=234
 	var clr=drawRectStrokeSelect.options[drawRectStrokeSelect.selectedIndex].value
 	drawRectStrokeBg.style.backgroundColor=clr
 }

@@ -359,8 +359,8 @@ function stop3Checked()
 {
    if(stop3Check.checked)
    {
-        stop1ColorSelect.selectedIndex=117
-        var stop1Color=stop1ColorSelect.options[117].value
+        stop1ColorSelect.selectedIndex=2
+        var stop1Color=stop1ColorSelect.options[2].value
         stop1ColorBG.style.background=stop1Color
         stop1Radial.setAttribute("stop-color",stop1Color)
         stop1Radial.setAttribute("offset","0%")
@@ -445,44 +445,51 @@ var GradientTarget
 function writeGradientColorSelection()
 {
    var DrawColors=parent.clrArray
-	for(var k=0;k<DrawColors.length;k++)
-	{
-		var name=DrawColors[k][0]
-		var myColor=DrawColors[k][1]
+    for(var k=0;k<DrawColors.length;k++)
+    {
+        var name=DrawColors[k][0]
+        var myColor=DrawColors[k][1]
 
-		var option=document.createElement("OPTION")
-		option.style.backgroundColor=myColor
-		option.value=myColor
-		option.title=name+" "+myColor
-		option.text=k
+        var option=document.createElement("OPTION")
+        option.style.backgroundColor=myColor
+        option.value=myColor
+        option.title=name+" "+myColor
+        option.text=k
         stop1ColorSelect.appendChild(option)
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
 
-		var option=document.createElement("OPTION")
-		option.style.backgroundColor=myColor
-		option.value=myColor
-		option.title=name+" "+myColor
-		option.text=k
+
+        var option=document.createElement("OPTION")
+        option.style.backgroundColor=myColor
+        option.value=myColor
+        option.title=name+" "+myColor
+        option.text=k
         stop2ColorSelect.appendChild(option)
+               if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
 
-		var option=document.createElement("OPTION")
-		option.style.backgroundColor=myColor
-		option.value=myColor
-		option.title=name+" "+myColor
-		option.text=k
+        var option=document.createElement("OPTION")
+        option.style.backgroundColor=myColor
+        option.value=myColor
+        option.title=name+" "+myColor
+        option.text=k
         stop3ColorSelect.appendChild(option)
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
 
-	}
-	stop1ColorSelect.selectedIndex=7
-	var clr=stop1ColorSelect.options[stop1ColorSelect.selectedIndex].value
-	stop1ColorBG.style.backgroundColor=clr
+    }
+    stop1ColorSelect.selectedIndex=140  //---red
+    var clr=stop1ColorSelect.options[stop1ColorSelect.selectedIndex].value
+    stop1ColorBG.style.backgroundColor=clr
 
-	stop2ColorSelect.selectedIndex=143
-	var clr=stop2ColorSelect.options[stop2ColorSelect.selectedIndex].value
-	stop2ColorBG.style.backgroundColor=clr
+    stop2ColorSelect.selectedIndex=1   //---black
+    var clr=stop2ColorSelect.options[stop2ColorSelect.selectedIndex].value
+    stop2ColorBG.style.backgroundColor=clr
 
-	stop3ColorSelect.selectedIndex=64
-	var clr=stop3ColorSelect.options[stop3ColorSelect.selectedIndex].value
-	stop3ColorBG.style.backgroundColor=clr
+    stop3ColorSelect.selectedIndex=68   //---dark green
+    var clr=stop3ColorSelect.options[stop3ColorSelect.selectedIndex].value
+    stop3ColorBG.style.backgroundColor=clr
 
 
 }

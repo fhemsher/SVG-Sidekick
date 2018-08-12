@@ -126,7 +126,7 @@ Color 3:<select onChange=symbolRegisterColor3Selected() disabled  title="symbol 
  <input type="checkbox" id=colorSymbolCheck onClick=parent.colorSymbolChecked() />:Color Symbols<br>
  <input type="checkbox" id=shadowSymbolCheck onClick=parent.shadowSymbolChecked() />:Add Shadow
  <center><button id=drawSymbolTopButton style=background:white;font-size:120%;font-weight:bold;color:maroon  title='Move to top' onClick=parent.topDrawSymbol()>&#x21E7;</button>
-	<button id=drawSymbolBotButton style=background:white;font-size:120%;font-weight:bold;color:maroon;   title='Move to bottom' onClick=parent.botDrawSymbol()>&#x21E9;</button>
+    <button id=drawSymbolBotButton style=background:white;font-size:120%;font-weight:bold;color:maroon;   title='Move to bottom' onClick=parent.botDrawSymbol()>&#x21E9;</button>
  </center>
 
 </TD>
@@ -168,8 +168,8 @@ document.addEventListener("onload",init(),false)
 function init()
 {
 
-	showNativeFiles()//-- and create an associated svg image for selection---
-	buildSymbolColorSelection()
+    showNativeFiles()//-- and create an associated svg image for selection---
+    buildSymbolColorSelection()
     //---insert: see handleSource.js---
     if(parent.InsertSymbolArray.length>0)
         initPlantSymbolTable()
@@ -180,51 +180,51 @@ var NativeIdSelect
 var NativeSymbolSelect
 function selectNative(myId)
 {
-	if(NativeIdSelect)
-	{
-		var myDiv=document.getElementById(NativeIdSelect+"Div")
-		myDiv.style.borderWidth=""
-		myDiv.style.borderStyle=""
-		myDiv.style.borderColor=""
-		symbolRegisterColor1Select.selectedIndex=1//--black---
-		symbolRegisterColor2Select.selectedIndex=2//--white---
-		symbolRegisterColor3Select.selectedIndex=1//--black---
-		symbolRegisterColor1Select.disabled=true
-		symbolRegisterColor2Select.disabled=true
-		symbolRegisterColor3Select.disabled=true
-		symbolRegColor1Value.style.backgroundColor="black"
-		symbolRegColor2Value.style.backgroundColor="white"
-		symbolRegColor3Value.style.backgroundColor="black"
+    if(NativeIdSelect)
+    {
+        var myDiv=document.getElementById(NativeIdSelect+"Div")
+        myDiv.style.borderWidth=""
+        myDiv.style.borderStyle=""
+        myDiv.style.borderColor=""
+        symbolRegisterColor1Select.selectedIndex=1//--black---
+        symbolRegisterColor2Select.selectedIndex=2//--white---
+        symbolRegisterColor3Select.selectedIndex=1//--black---
+        symbolRegisterColor1Select.disabled=true
+        symbolRegisterColor2Select.disabled=true
+        symbolRegisterColor3Select.disabled=true
+        symbolRegColor1Value.style.backgroundColor="black"
+        symbolRegColor2Value.style.backgroundColor="white"
+        symbolRegColor3Value.style.backgroundColor="black"
         color1Div.style.visibility="hidden"
         color2Div.style.visibility="hidden"
         color3Div.style.visibility="hidden"
-		var polys=NativeSymbolSelect.childNodes
-		polys.item(0).setAttribute("fill","black")
-		if(polys.length>1)
-			polys.item(1).setAttribute("fill","white")
-		if(polys.length>2)
-			polys.item(2).setAttribute("fill","black")
-	}
+        var polys=NativeSymbolSelect.childNodes
+        polys.item(0).setAttribute("fill","black")
+        if(polys.length>1)
+            polys.item(1).setAttribute("fill","white")
+        if(polys.length>2)
+            polys.item(2).setAttribute("fill","black")
+    }
 
-	registerSymbolButton.disabled=false
-	NativeIdSelect=myId
-	NativeSymbolSelect=document.getElementById(NativeIdSelect)
-	var myDiv=document.getElementById(myId+"Div")
-	myDiv.style.borderWidth="3px"
-	myDiv.style.borderStyle="inset"
-	myDiv.style.borderColor="violet"
+    registerSymbolButton.disabled=false
+    NativeIdSelect=myId
+    NativeSymbolSelect=document.getElementById(NativeIdSelect)
+    var myDiv=document.getElementById(myId+"Div")
+    myDiv.style.borderWidth="3px"
+    myDiv.style.borderStyle="inset"
+    myDiv.style.borderColor="violet"
 
-	symbolRegisterColor1Select.disabled=false
+    symbolRegisterColor1Select.disabled=false
     color1Div.style.visibility="visible"
-	var polys=NativeSymbolSelect.getElementsByTagName("polygon")
-	if(polys.length>1)
+    var polys=NativeSymbolSelect.getElementsByTagName("polygon")
+    if(polys.length>1)
     {
-		symbolRegisterColor2Select.disabled=false
+        symbolRegisterColor2Select.disabled=false
          color2Div.style.visibility="visible"
     }
-	if(polys.length>2)
+    if(polys.length>2)
     {
-		symbolRegisterColor3Select.disabled=false
+        symbolRegisterColor3Select.disabled=false
         color3Div.style.visibility="visible"
      }
 
@@ -232,135 +232,135 @@ function selectNative(myId)
 
 function symbolRegisterColor1Selected()
 {
-	var color1=symbolRegisterColor1Select.options[symbolRegisterColor1Select.selectedIndex].value
-	symbolRegColor1Value.style.backgroundColor=color1
-	if(parent.ColorSymbols == false) NativeSymbolSelect.childNodes.item(0).setAttribute("fill",color1)
+    var color1=symbolRegisterColor1Select.options[symbolRegisterColor1Select.selectedIndex].value
+    symbolRegColor1Value.style.backgroundColor=color1
+    if(parent.ColorSymbols == false) NativeSymbolSelect.childNodes.item(0).setAttribute("fill",color1)
 }
 function symbolRegisterColor2Selected()
 {
-	var color2=symbolRegisterColor2Select.options[symbolRegisterColor2Select.selectedIndex].value
-	symbolRegColor2Value.style.backgroundColor=color2
-	if(parent.ColorSymbols == false)NativeSymbolSelect.childNodes.item(1).setAttribute("fill",color2)
+    var color2=symbolRegisterColor2Select.options[symbolRegisterColor2Select.selectedIndex].value
+    symbolRegColor2Value.style.backgroundColor=color2
+    if(parent.ColorSymbols == false)NativeSymbolSelect.childNodes.item(1).setAttribute("fill",color2)
 }
 function symbolRegisterColor3Selected()
 {
-	var color3=symbolRegisterColor3Select.options[symbolRegisterColor3Select.selectedIndex].value
-	symbolRegColor3Value.style.backgroundColor=color3
-	if(parent.ColorSymbols == false)NativeSymbolSelect.childNodes.item(2).setAttribute("fill",color3)
+    var color3=symbolRegisterColor3Select.options[symbolRegisterColor3Select.selectedIndex].value
+    symbolRegColor3Value.style.backgroundColor=color3
+    if(parent.ColorSymbols == false)NativeSymbolSelect.childNodes.item(2).setAttribute("fill",color3)
 }
 
 //---the native symbol Id + color(s) 2-digit number is used to create a unique Id---
 function registerSymbol()
 {
-	//--this is a <g> element with polygon(s)---
-	var clone=NativeSymbolSelect.cloneNode(true)
-	//---get colors and their numbers(for id)--
-	color1=symbolRegisterColor1Select.options[symbolRegisterColor1Select.selectedIndex].value
-	color1Num=symbolRegisterColor1Select.selectedIndex
-	color2=symbolRegisterColor2Select.options[symbolRegisterColor2Select.selectedIndex].value
-	color2Num=symbolRegisterColor2Select.selectedIndex
-	color3=symbolRegisterColor3Select.options[symbolRegisterColor3Select.selectedIndex].value
-	color3Num=symbolRegisterColor3Select.selectedIndex
-	var id=NativeSymbolSelect.id+"_"
-	var polys=clone.getElementsByTagName("polygon")
-	polys.item(0).setAttribute("fill",color1)
-	id+=color1Num+"_"
-	if(polys.length>1)
-	{
-		polys.item(1).setAttribute("fill",color2)
-		id+=color2Num
-	}
-	if(polys.length>2)
-	{
-		polys.item(2).setAttribute("fill",color3)
-		id+="_"+color3Num
-	}
-	clone.id=id //--color numbers appended---
-	//---size this symbol--
-	var registerSize=+registerSymbolSizeSelect.options[registerSymbolSizeSelect.selectedIndex].text
+    //--this is a <g> element with polygon(s)---
+    var clone=NativeSymbolSelect.cloneNode(true)
+    //---get colors and their numbers(for id)--
+    color1=symbolRegisterColor1Select.options[symbolRegisterColor1Select.selectedIndex].value
+    color1Num=symbolRegisterColor1Select.selectedIndex
+    color2=symbolRegisterColor2Select.options[symbolRegisterColor2Select.selectedIndex].value
+    color2Num=symbolRegisterColor2Select.selectedIndex
+    color3=symbolRegisterColor3Select.options[symbolRegisterColor3Select.selectedIndex].value
+    color3Num=symbolRegisterColor3Select.selectedIndex
+    var id=NativeSymbolSelect.id+"_"
+    var polys=clone.getElementsByTagName("polygon")
+    polys.item(0).setAttribute("fill",color1)
+    id+=color1Num+"_"
+    if(polys.length>1)
+    {
+        polys.item(1).setAttribute("fill",color2)
+        id+=color2Num
+    }
+    if(polys.length>2)
+    {
+        polys.item(2).setAttribute("fill",color3)
+        id+="_"+color3Num
+    }
+    clone.id=id //--color numbers appended---
+    //---size this symbol--
+    var registerSize=+registerSymbolSizeSelect.options[registerSymbolSizeSelect.selectedIndex].text
 
-	//---note: the selected symbols have been sized=30 for convenient user selection---
-	var resize=registerSize/30
-
-
-	if(resize!=1)
-	{
-		for(var k=0;k<clone.childNodes.length;k++)
-		{
-			var pgon=clone.childNodes.item(k)
-			pgon.setAttribute("transform","scale("+resize+")")
-			computePolyPoints(myAppSVG,pgon)
-		}
-	}
+    //---note: the selected symbols have been sized=30 for convenient user selection---
+    var resize=registerSize/30
 
 
-	clone.setAttribute("size",registerSize)
-	clone.setAttribute("nativeId",id)
-
-	clone.removeAttribute("transform")
-	//---send registered symbol to server---
-	var registerSVG=document.createElementNS('http://www.w3.org/2000/svg',"svg")
-	registerSVG.appendChild(clone)
-
-	//--update defs---
-	SymbolDefs.appendChild(clone)
-	//---show defs---
-
-	//----place in this example's user table selection for planting---
-	var plantSymbol=clone.cloneNode(true)
+    if(resize!=1)
+    {
+        for(var k=0;k<clone.childNodes.length;k++)
+        {
+            var pgon=clone.childNodes.item(k)
+            pgon.setAttribute("transform","scale("+resize+")")
+            computePolyPoints(myAppSVG,pgon)
+        }
+    }
 
 
+    clone.setAttribute("size",registerSize)
+    clone.setAttribute("nativeId",id)
 
-	//---place this in a root svg, used as inline image for table---
-	var plantSVG=document.createElementNS('http://www.w3.org/2000/svg',"svg")
-	plantSVG.appendChild(plantSymbol)
+    clone.removeAttribute("transform")
+    //---send registered symbol to server---
+    var registerSVG=document.createElementNS('http://www.w3.org/2000/svg',"svg")
+    registerSVG.appendChild(clone)
 
-	//---size this for convenient user selection: size=30---
-	var mySize=parseFloat(plantSymbol.getAttribute("size"))
-	if(mySize!=30)
-	{
-		var resize=30/mySize
-		for(var k=0;k<plantSymbol.childNodes.length;k++)
-		{
-			var pgon=plantSymbol.childNodes.item(k)
-			pgon.setAttribute("transform","scale("+resize+")")
-			computePolyPoints(plantSVG,pgon)
-		}
-	}
+    //--update defs---
+    SymbolDefs.appendChild(clone)
+    //---show defs---
 
-	var defId=plantSymbol.id
-	plantSymbol.id=defId+"Plant"
-	plantSymbol.setAttribute("transform","translate(15 15)")
-	var  plantSymbolString=new XMLSerializer().serializeToString(plantSVG)
-	var tr = plantSymbolTable.insertRow(plantSymbolTable.rows.length);
-	var td = tr.insertCell(tr.cells.length);
-	td.innerHTML ="<div title='Plant Me' onClick=plantThisSymbol('"+defId+"') id="+defId+"Div style='width:30px;height:30px;overflow:hidden'>"+plantSymbolString+"</div>"+mySize+"px"
-	if(NativeIdSelect)
-	{
-		var myDiv=document.getElementById(NativeIdSelect+"Div")
-		myDiv.style.borderWidth=""
-		myDiv.style.borderStyle=""
-		myDiv.style.borderColor=""
-		symbolRegisterColor1Select.selectedIndex=1
-		symbolRegisterColor2Select.selectedIndex=2
-		symbolRegisterColor3Select.selectedIndex=1
-		symbolRegisterColor1Select.disabled=true
-		symbolRegisterColor2Select.disabled=true
-		symbolRegisterColor3Select.disabled=true
-		symbolRegColor1Value.style.backgroundColor="black"
-		symbolRegColor2Value.style.backgroundColor="white"
-		symbolRegColor3Value.style.backgroundColor="black"
+    //----place in this example's user table selection for planting---
+    var plantSymbol=clone.cloneNode(true)
+
+
+
+    //---place this in a root svg, used as inline image for table---
+    var plantSVG=document.createElementNS('http://www.w3.org/2000/svg',"svg")
+    plantSVG.appendChild(plantSymbol)
+
+    //---size this for convenient user selection: size=30---
+    var mySize=parseFloat(plantSymbol.getAttribute("size"))
+    if(mySize!=30)
+    {
+        var resize=30/mySize
+        for(var k=0;k<plantSymbol.childNodes.length;k++)
+        {
+            var pgon=plantSymbol.childNodes.item(k)
+            pgon.setAttribute("transform","scale("+resize+")")
+            computePolyPoints(plantSVG,pgon)
+        }
+    }
+
+    var defId=plantSymbol.id
+    plantSymbol.id=defId+"Plant"
+    plantSymbol.setAttribute("transform","translate(15 15)")
+    var  plantSymbolString=new XMLSerializer().serializeToString(plantSVG)
+    var tr = plantSymbolTable.insertRow(plantSymbolTable.rows.length);
+    var td = tr.insertCell(tr.cells.length);
+    td.innerHTML ="<div title='Plant Me' onClick=plantThisSymbol('"+defId+"') id="+defId+"Div style='width:30px;height:30px;overflow:hidden'>"+plantSymbolString+"</div>"+mySize+"px"
+    if(NativeIdSelect)
+    {
+        var myDiv=document.getElementById(NativeIdSelect+"Div")
+        myDiv.style.borderWidth=""
+        myDiv.style.borderStyle=""
+        myDiv.style.borderColor=""
+        symbolRegisterColor1Select.selectedIndex=1
+        symbolRegisterColor2Select.selectedIndex=2
+        symbolRegisterColor3Select.selectedIndex=1
+        symbolRegisterColor1Select.disabled=true
+        symbolRegisterColor2Select.disabled=true
+        symbolRegisterColor3Select.disabled=true
+        symbolRegColor1Value.style.backgroundColor="black"
+        symbolRegColor2Value.style.backgroundColor="white"
+        symbolRegColor3Value.style.backgroundColor="black"
          color1Div.style.visibility="hidden"
         color2Div.style.visibility="hidden"
         color3Div.style.visibility="hidden"
-		var polys=NativeSymbolSelect.getElementsByTagName("polygon")
-		polys.item(0).setAttribute("fill","black")
-		if(polys.length>1)
-			polys.item(1).setAttribute("fill","white")
-		if(polys.length>2)
-			polys.item(2).setAttribute("fill","black")
-	}
-	NativeIdSelect=null
+        var polys=NativeSymbolSelect.getElementsByTagName("polygon")
+        polys.item(0).setAttribute("fill","black")
+        if(polys.length>1)
+            polys.item(1).setAttribute("fill","white")
+        if(polys.length>2)
+            polys.item(2).setAttribute("fill","black")
+    }
+    NativeIdSelect=null
     dragSymbolCheck.checked=false
     deleteSymbolCheck.checked=false
     resizeSymbolCheck.checked=false
@@ -434,34 +434,34 @@ function registerInsertSymbol(symbol,defId,color1Num,color2Num,color3Num)
         polys.item(0).setAttribute("fill",color1)
     }
 
-		if(polys.length>1)
+        if(polys.length>1)
         {
         var color2=parent.clrArray[color2Num][1]
-			polys.item(1).setAttribute("fill",color2)
+            polys.item(1).setAttribute("fill",color2)
 
         }
-		if(polys.length>2)
+        if(polys.length>2)
         {
         var color3=parent.clrArray[color3Num][1]
 
-			polys.item(2).setAttribute("fill",color3)
+            polys.item(2).setAttribute("fill",color3)
         }
 
 
 
-	plantSymbol.setAttribute("transform","translate(15 15)")
+    plantSymbol.setAttribute("transform","translate(15 15)")
 
 
     	//---place this in a root svg, used as inline image for table---
-	var plantSVG=document.createElementNS('http://www.w3.org/2000/svg',"svg")
-	plantSVG.appendChild(plantSymbol)
+    var plantSVG=document.createElementNS('http://www.w3.org/2000/svg',"svg")
+    plantSVG.appendChild(plantSymbol)
 
 
 
-	var  plantSymbolString=new XMLSerializer().serializeToString(plantSVG)
-	var tr = plantSymbolTable.insertRow(plantSymbolTable.rows.length);
-	var td = tr.insertCell(tr.cells.length);
-	td.innerHTML ="<div title='Plant Me' onClick=plantThisSymbol('"+defId+"') id="+defId+"Div style='width:30px;height:30px;overflow:hidden'>"+plantSymbolString+"</div>30px"
+    var  plantSymbolString=new XMLSerializer().serializeToString(plantSVG)
+    var tr = plantSymbolTable.insertRow(plantSymbolTable.rows.length);
+    var td = tr.insertCell(tr.cells.length);
+    td.innerHTML ="<div title='Plant Me' onClick=plantThisSymbol('"+defId+"') id="+defId+"Div style='width:30px;height:30px;overflow:hidden'>"+plantSymbolString+"</div>30px"
 
 
 
@@ -471,19 +471,19 @@ function registerInsertSymbol(symbol,defId,color1Num,color2Num,color3Num)
 var PlantMeId
 function plantThisSymbol(defId)
 {
-	if(PlantMeId)
-	{
-		var myDiv=document.getElementById(PlantMeId+"Div")
-		myDiv.style.borderWidth=""
-		myDiv.style.borderStyle=""
-		myDiv.style.borderColor=""
-	}
-	var myDiv=document.getElementById(defId+"Div")
-	myDiv.style.borderWidth="1"
-	myDiv.style.borderStyle="solid"
-	myDiv.style.borderColor="violet"
+    if(PlantMeId)
+    {
+        var myDiv=document.getElementById(PlantMeId+"Div")
+        myDiv.style.borderWidth=""
+        myDiv.style.borderStyle=""
+        myDiv.style.borderColor=""
+    }
+    var myDiv=document.getElementById(defId+"Div")
+    myDiv.style.borderWidth="1"
+    myDiv.style.borderStyle="solid"
+    myDiv.style.borderColor="violet"
 
-	PlantMeId=defId
+    PlantMeId=defId
 
     parent.mySVG.setAttribute("onclick","plantPgonSymbol(event)")
 
@@ -493,23 +493,23 @@ function plantThisSymbol(defId)
 var UndoArray=[]
 function plantAppSymbol(event)
 {
-	var offsets = svgDiv.getBoundingClientRect();
-	var top = offsets.top;
-	var left = offsets.left;
-	//---requred for FF----
-	var eventObj = event || window.event;
+    var offsets = svgDiv.getBoundingClientRect();
+    var top = offsets.top;
+    var left = offsets.left;
+    //---requred for FF----
+    var eventObj = event || window.event;
 
-	var x = eventObj.clientX-left
-	var y = eventObj.clientY-top
-	//---time stamp @ id---
-	var utcMS=new Date().getTime()
+    var x = eventObj.clientX-left
+    var y = eventObj.clientY-top
+    //---time stamp @ id---
+    var utcMS=new Date().getTime()
 
-	var defG=document.getElementById(PlantMeId)
-	PlantMe=defG.cloneNode(true)
-	PlantMe.id=PlantMeId+"_"+utcMS
+    var defG=document.getElementById(PlantMeId)
+    PlantMe=defG.cloneNode(true)
+    PlantMe.id=PlantMeId+"_"+utcMS
     var scale=+PlantMe.getAttribute("size")/30
-	PlantMe.setAttribute("transform","translate("+x+" "+y+")scale("+scale+")")
-	parent.domAddSymbolG.appendChild(PlantMe)
+    PlantMe.setAttribute("transform","translate("+x+" "+y+")scale("+scale+")")
+    parent.domAddSymbolG.appendChild(PlantMe)
     UndoArray.push(PlantMe)
     undoButton.disabled=false
 }
@@ -527,159 +527,153 @@ function undoButtonClicked()
 //---user size 30x30 px---
 function sizeMe(symbolG,size)
 {
-	var mySVG=symbolG.parentNode
-	for(var k=0;k<symbolG.childNodes.length;k++)
-	{
-		var pgon=symbolG.childNodes.item(k)
-		pgon.setAttribute("transform","scale("+size+")")
-		computePolyPoints(mySVG,pgon)
-	}
+    var mySVG=symbolG.parentNode
+    for(var k=0;k<symbolG.childNodes.length;k++)
+    {
+        var pgon=symbolG.childNodes.item(k)
+        pgon.setAttribute("transform","scale("+size+")")
+        computePolyPoints(mySVG,pgon)
+    }
 }
 
 //---changes all transformed points to screen points---
 function computePolyPoints(mySVG,myPoly)
 {
-	var sCTM = myPoly.getCTM()
-	var pointsList = myPoly.points;
-	var n = pointsList.numberOfItems;
-	for(var m=0;m<n;m++)
-	{
-		var mySVGPoint = mySVG.createSVGPoint();
-		mySVGPoint.x = pointsList.getItem(m).x
-		mySVGPoint.y = pointsList.getItem(m).y
-		mySVGPointTrans = mySVGPoint.matrixTransform(sCTM)
-		pointsList.getItem(m).x=mySVGPointTrans.x
-		pointsList.getItem(m).y=mySVGPointTrans.y
-	}
-	//---force removal of transform--
-	myPoly.setAttribute("transform","")
-	myPoly.removeAttribute("transform")
+    var sCTM = myPoly.getCTM()
+    var pointsList = myPoly.points;
+    var n = pointsList.numberOfItems;
+    for(var m=0;m<n;m++)
+    {
+        var mySVGPoint = mySVG.createSVGPoint();
+        mySVGPoint.x = pointsList.getItem(m).x
+        mySVGPoint.y = pointsList.getItem(m).y
+        mySVGPointTrans = mySVGPoint.matrixTransform(sCTM)
+        pointsList.getItem(m).x=mySVGPointTrans.x
+        pointsList.getItem(m).y=mySVGPointTrans.y
+    }
+    //---force removal of transform--
+    myPoly.setAttribute("transform","")
+    myPoly.removeAttribute("transform")
 }
 
 //---show 40 .svg files in textarea---
 function showNativeFiles()
 {
     var NativeID=[]
-	NativeID[0]="Star4"
-	NativeID[1]="Star5"
-	NativeID[2]="Star6"
-	NativeID[3]="Star10"
-	NativeID[4]="Star15"
-	NativeID[5]="Pgon3u"
-	NativeID[6]="Pgon3d"
-	NativeID[7]="Pgon3r"
-	NativeID[8]="Pgon3l"
-	NativeID[9]="Pgon4d"
-	NativeID[10]="Pgon4"
-	NativeID[11]="Pgon6"
-	NativeID[12]="Circle"
-	NativeID[13]="EllipseHoriz"
-	NativeID[14]="EllipseVert"
-	NativeID[15]="RhombHoriz"
-	NativeID[16]="RhombVert"
-	NativeID[17]="CircleStar6"
-	NativeID[18]="Pgon4vStar6"
-	NativeID[19]="Pgon4Star6"
-	NativeID[20]="Pgon4dCircle"
-	NativeID[21]="Pgon4vRhombHoriz"
-	NativeID[22]="Pgon4vRhombVert"
-	NativeID[23]="CircleRhombHoriz"
-	NativeID[24]="CircleRhombVert"
-	NativeID[25]="CirclePgon3r"
-	NativeID[26]="CirclePgon3t"
-	NativeID[27]="CirclePgon3l"
-	NativeID[28]="CirclePgon3b"
-	NativeID[29]="CirclePgon4d"
-	NativeID[30]="CircleEllipseVert"
-	NativeID[31]="CircleEllipseHoriz"
-	NativeID[32]="Pgon4Circle"
-	NativeID[33]="CirclePgon4"
-	NativeID[34]="Pgon6Circle"
-	NativeID[35]="Pgon4CircleStar5"
-	NativeID[36]="CirclePgon4vStar6"
-	NativeID[37]="Star6Circle"
-	NativeID[38]="Pgon6Star6"
-	NativeID[39]="Pgon8Star4"
+    NativeID[0]="Star4"
+    NativeID[1]="Star5"
+    NativeID[2]="Star6"
+    NativeID[3]="Star10"
+    NativeID[4]="Star15"
+    NativeID[5]="Pgon3u"
+    NativeID[6]="Pgon3d"
+    NativeID[7]="Pgon3r"
+    NativeID[8]="Pgon3l"
+    NativeID[9]="Pgon4d"
+    NativeID[10]="Pgon4"
+    NativeID[11]="Pgon6"
+    NativeID[12]="Circle"
+    NativeID[13]="EllipseHoriz"
+    NativeID[14]="EllipseVert"
+    NativeID[15]="RhombHoriz"
+    NativeID[16]="RhombVert"
+    NativeID[17]="CircleStar6"
+    NativeID[18]="Pgon4vStar6"
+    NativeID[19]="Pgon4Star6"
+    NativeID[20]="Pgon4dCircle"
+    NativeID[21]="Pgon4vRhombHoriz"
+    NativeID[22]="Pgon4vRhombVert"
+    NativeID[23]="CircleRhombHoriz"
+    NativeID[24]="CircleRhombVert"
+    NativeID[25]="CirclePgon3r"
+    NativeID[26]="CirclePgon3t"
+    NativeID[27]="CirclePgon3l"
+    NativeID[28]="CirclePgon3b"
+    NativeID[29]="CirclePgon4d"
+    NativeID[30]="CircleEllipseVert"
+    NativeID[31]="CircleEllipseHoriz"
+    NativeID[32]="Pgon4Circle"
+    NativeID[33]="CirclePgon4"
+    NativeID[34]="Pgon6Circle"
+    NativeID[35]="Pgon4CircleStar5"
+    NativeID[36]="CirclePgon4vStar6"
+    NativeID[37]="Star6Circle"
+    NativeID[38]="Pgon6Star6"
+    NativeID[39]="Pgon8Star4"
  NativeID[40]="Star4_30"
 
-	var loadXML = new XMLHttpRequest;
-	for(var k=0;k<NativeID.length;k++)
-	{
-		var SVGFile="PgonLibrary/"+NativeID[k]+".svg"
-		if (loadXML != null)
-		{
-			loadXML.open("GET", SVGFile, false);
-			loadXML.onreadystatechange = handler;
-			loadXML.send();
-		}
-	}
-	function handler()
-	{
-		if(loadXML.readyState == 4 && loadXML.status == 200)
-		{
-			var myDiv=document.getElementById(NativeID[k]+"Div")
-		  //	nativeLibraryValue.value+=loadXML.responseText
-			myDiv.innerHTML=loadXML.responseText
-			myNativeSymbolG=document.getElementById(NativeID[k])
-			///---increase size to 30----
-			sizeMe(myNativeSymbolG,30)
-			myNativeSymbolG.setAttribute("transform","translate(15 15)")
-		}
-	}
+    var loadXML = new XMLHttpRequest;
+    for(var k=0;k<NativeID.length;k++)
+    {
+        var SVGFile="PgonLibrary/"+NativeID[k]+".svg"
+        if (loadXML != null)
+        {
+            loadXML.open("GET", SVGFile, false);
+            loadXML.onreadystatechange = handler;
+            loadXML.send();
+        }
+    }
+    function handler()
+    {
+        if(loadXML.readyState == 4 && loadXML.status == 200)
+        {
+            var myDiv=document.getElementById(NativeID[k]+"Div")
+          //	nativeLibraryValue.value+=loadXML.responseText
+            myDiv.innerHTML=loadXML.responseText
+            myNativeSymbolG=document.getElementById(NativeID[k])
+            ///---increase size to 30----
+            sizeMe(myNativeSymbolG,30)
+            myNativeSymbolG.setAttribute("transform","translate(15 15)")
+        }
+    }
 }
 //--color numbers included in id---
 function buildSymbolColorSelection()
 {
   	var colors=parent.clrArray
 
-	for(var k=0;k<colors.length;k++)
-	{
-		var name=colors[k][0]
-		var myColor=colors[k][1]
-		var option=document.createElement("OPTION")
-		option.style.backgroundColor=myColor
-		option.value=myColor
-		option.title=name+" "+myColor
-       // if(parent.hexString.indexOf(myColor)!=-1)
-        //option.style.color="white"
+    for(var k=0;k<colors.length;k++)
+    {
+        var name=colors[k][0]
+        var myColor=colors[k][1]
+        var option=document.createElement("OPTION")
+        option.style.backgroundColor=myColor
+        option.value=myColor
+        option.title=name+" "+myColor
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
 
-		option.text=k
-		symbolRegisterColor1Select.appendChild(option)
+        option.text=k
+        symbolRegisterColor1Select.appendChild(option)
 
-		var option=document.createElement("OPTION")
-		option.style.backgroundColor=myColor
-		option.value=myColor
-		option.title=name+" "+myColor
-		option.text=k
-       // if(parent.hexString.indexOf(myColor)!=-1)
-      //  option.style.color="white"
-		symbolRegisterColor2Select.appendChild(option)
+        var option=document.createElement("OPTION")
+        option.style.backgroundColor=myColor
+        option.value=myColor
+        option.title=name+" "+myColor
+        option.text=k
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
+        symbolRegisterColor2Select.appendChild(option)
 
-		var option=document.createElement("OPTION")
-		option.style.backgroundColor=myColor
-		option.value=myColor
-		option.title=name+" "+myColor
-		option.text=k
-        //if(parent.hexString.indexOf(myColor)!=-1)
-       // option.style.color="white"
-		symbolRegisterColor3Select.appendChild(option)
-	}
+        var option=document.createElement("OPTION")
+        option.style.backgroundColor=myColor
+        option.value=myColor
+        option.title=name+" "+myColor
+        option.text=k
+        if(parent.hexString.indexOf(myColor)!=-1)
+        option.style.color="white"
+        symbolRegisterColor3Select.appendChild(option)
+    }
 
-    	symbolRegisterColor1Select.selectedIndex=2//--black---
-		symbolRegisterColor2Select.selectedIndex=1//--white---
-		symbolRegisterColor3Select.selectedIndex=2//--black---
+    	symbolRegisterColor1Select.selectedIndex=1//--black---
+        symbolRegisterColor2Select.selectedIndex=2//--white---
+        symbolRegisterColor3Select.selectedIndex=1//--black---
 }
 
 function sendSize()
 {
-   setTimeout(parent.buildSymbolTable,900)
-            undoButton.disabled=false
 
-         //if(parent.SchematicSymbolArray.length!=0)
-        // {
-           // setTimeout(parent.buildSymbolTable,900)
-          //  undoButton.disabled=false
-       // }
+       
    var width=400
    var height=444
 

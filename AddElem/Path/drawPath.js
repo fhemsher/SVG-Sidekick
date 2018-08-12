@@ -1,10 +1,10 @@
 // fired at cursorLoc.js---
 function trackDrawPath()
 {
-     var cw = addElemPathCw
+    var cw = addElemPathCw
 
     if
-    (ActiveElem==null&&DrawPathStart==true&&cw.dragAddPathCheck.checked==false)
+    (ActiveElem==null&&DrawPathStart==true)
     {
         DrawX.style("display", "inline")
         DrawX.attr("transform", "translate("+SVGx+" "+SVGy+")")
@@ -15,7 +15,6 @@ function trackDrawPath()
 
     if(activeElem&&ActiveElem&&ActiveElemStop==false) //   &&ActiveElemStop==false
     {
-
 
         var currentPoints = activeElem.getAttribute("d");
 
@@ -39,7 +38,7 @@ function trackDrawPath()
                 var lastY = lastSeg.y
 
                 //---rightAngle---
-             if(cw.drawPathRightAngleCheck.checked==true)
+                if(cw.drawPathRightAngleCheck.checked==true)
             {
                 var xDiff = Math.abs(lastX-SVGx);
                 var yDiff = Math.abs(lastY-SVGy);
@@ -47,7 +46,7 @@ function trackDrawPath()
                 if(yDiff>xDiff)NextX = lastX;
 
             }
-        if(RubberLine&&PausePath==false&&PathClosed==false)
+            if(RubberLine&&PausePath==false&&PathClosed==false)
         {
             rubberLine.setAttribute("x2", NextX)
             rubberLine.setAttribute("y2", NextY)
@@ -66,13 +65,13 @@ var ActiveElemStop = false
 //---on frame load or open drawPath---
 function startPathDraw()
 {
-     DrawX.attr("stroke","violet")
+    DrawX.attr("stroke", "violet")
     mySVG.setAttribute('onclick', "placeDrawPath()")
     ActiveElem = null
     DrawPathStart = true
     DrawPath = false
     NewEndArrow = null
-    PathClosed=false
+    PathClosed = false
     window.addEventListener("keypress", keyPressPath, false);
     //---attach point drag to mySVG---
     mySVG.setAttribute("onmousedown", "startDragPoint(evt)")
@@ -82,7 +81,7 @@ function startPathDraw()
     coverOn()
 
     var cw = addElemPathCw
-
+    cw.pathZoneMarkerDiv.style.visibility = "hidden"
 }
 //---click on svg layer---
 var ActivePoint
@@ -95,16 +94,14 @@ function placeDrawPath()
     var strokeWidth = cw.drawPathStrokeWidthSelect.options[cw.drawPathStrokeWidthSelect.selectedIndex].text
     var strokeColor = cw.drawPathStrokeSelect.options[cw.drawPathStrokeSelect.selectedIndex].value
     var fillColor = cw.drawPathFillSelect.options[cw.drawPathFillSelect.selectedIndex].value
-    var opacity= cw.drawPathOpacitySelect.options[cw.drawPathOpacitySelect.selectedIndex].text
-    var opacityStroke= cw.drawPathOpacitySelect.options[cw.drawPathStrokeOpacitySelect.selectedIndex].text
+    var opacity = cw.drawPathOpacitySelect.options[cw.drawPathOpacitySelect.selectedIndex].text
+    var opacityStroke = cw.drawPathOpacitySelect.options[cw.drawPathStrokeOpacitySelect.selectedIndex].text
     mySVG.addEventListener("keypress", keyPressPath, false)
-
-
 
     ActiveElem = ActiveElemG.append("path")
     .attr("id", "activeElem")
     .attr("fill", fillColor)
-    .attr("fill-opacity",opacity)
+    .attr("fill-opacity", opacity)
     .attr("stroke", strokeColor)
     .attr("stroke-width", strokeWidth)
     .attr("stroke-opacity", opacityStroke)
@@ -122,23 +119,18 @@ function placeDrawPath()
     if(cw.drawPathStrokeDashCheck.checked==true)
         ActiveElem.attr("stroke-dasharray", "8 4")
 
-    if(cw.drawPathShadowCheck.checked==true)
+        if(cw.drawPathShadowCheck.checked==true)
         ActiveElem.attr("filter", "url(#drop-shadow)")
 
+        if(cw.drawPathPipe3DCheck.checked==true)
+    {
+        ActiveElem.attr("filter", "url(#pipe3D)")
+        ActiveElem.attr("stroke-linejoin", "round")
+        cw.drawPathShadowCheck.checked = false
+        cw.drawPathShadowCheck.disabled = true
+    }
 
-
-
-      if(cw.drawPathPipe3DCheck.checked==true)
-      {
-          ActiveElem.attr("filter", "url(#pipe3D)")
-          ActiveElem.attr("stroke-linejoin", "round")
-          cw.drawPathShadowCheck.checked=false
-          cw.drawPathShadowCheck.disabled=true
-      }
-
-
-
-        if(cw.drawPathStrokeArrowCheck.checked==true)
+    if(cw.drawPathStrokeArrowCheck.checked==true)
         ActiveElem.attr("marker-end", "url(#"+EndArrowId+")")
 
         activeElem = document.getElementById("activeElem")
@@ -173,7 +165,7 @@ function placeDrawPath()
 
         .style("cursor", "move")
 
-      //  tfm("dragCircleG", PrevTransX, PrevTransY, PrevScale)
+        //  tfm("dragCircleG", PrevTransX, PrevTransY, PrevScale)
         SegSetX = firstX
         SegSetY = firstY
 
@@ -195,8 +187,6 @@ function placeDrawPath()
         cw.drawPathCancelButton.disabled = false
 
         DrawPath = true
-        cw.dragAddPathCheck.checked=false
-    cw.dragAddPathCheck.disabled=true
 }
 
 var DragCircleG;
@@ -246,23 +236,22 @@ function clickNextPathPoint()
     var nextX = SVGx
     var nextY = SVGy
 
-      if(cw.drawPathPipe3DCheck.checked==true)
-      {
-          ActiveElem.attr("filter", "url(#pipe3D)")
-          ActiveElem.attr("stroke-linejoin", "round")
+    if(cw.drawPathPipe3DCheck.checked==true)
+    {
+        ActiveElem.attr("filter", "url(#pipe3D)")
+        ActiveElem.attr("stroke-linejoin", "round")
 
-      }
-
+    }
 
     //---rightAngle---
     if(cw.drawPathRightAngleCheck.checked==true)
     {
-      if(cw.drawPathPipe3DCheck.checked==true &&Point==1)
-      {
-         ActiveElem.attr("filter", null)
-          ActiveElem.attr("stroke-linejoin", null)
+        if(cw.drawPathPipe3DCheck.checked==true &&Point==1)
+        {
+            ActiveElem.attr("filter", null)
+            ActiveElem.attr("stroke-linejoin", null)
 
-      }
+        }
         var pathSegs = activeElem.pathSegList
         var segs = pathSegs.numberOfItems
         var lastSeg = pathSegs.getItem(segs-1)
@@ -275,7 +264,6 @@ function clickNextPathPoint()
         if(yDiff>xDiff)nextX = lastX;
     }
     //---place a drag circle at each point--
-
 
     var circle = document.createElementNS(NS, "circle")
     circle.setAttribute("id", "dragPnt"+Point)
@@ -328,22 +316,19 @@ function clickNextPathPoint()
     if(Point>1)
         cw.drawPathEncloseButton.disabled = false
 
-
-    if(DrawPathType=="basis")
+        if(DrawPathType=="basis")
     {
 
-              if(activeElem.getAttribute("d").indexOf("z")==-1)
-                 var line = d3.line().curve(d3.curveBasis);
-               else
-               var line = d3.line().curve(d3.curveBasisClosed);
-
-
-
+        if(activeElem.getAttribute("d").indexOf("z")==-1)
+            var line = d3.line().curve(d3.curveBasis);
+        else
+            var line = d3.line().curve(d3.curveBasisClosed);
 
         d3.select("#drawPathSmooth").attr('d', line);
 
     }
-
+    if(PathZoneMarker)
+        refreshMarkers()
 }
 
 var DrawPathType = 'linear'
@@ -363,10 +348,10 @@ function drawPathSmoothSelected()
     //---get linear points---
     if(!DrawPathSmooth)
     {
-          if(activeElem.getAttribute("d").indexOf("z")==-1)
-                 var line = d3.line().curve(d3.curveBasis);
-               else
-               var line = d3.line().curve(d3.curveBasisClosed);
+        if(activeElem.getAttribute("d").indexOf("z")==-1)
+            var line = d3.line().curve(d3.curveBasis);
+        else
+            var line = d3.line().curve(d3.curveBasisClosed);
 
         var data = PathPointArray
         DrawPathSmooth = ActiveElemG.append('path')
@@ -377,29 +362,29 @@ function drawPathSmoothSelected()
         .attr("fill-opacity", opacity)
         .attr("stroke", strokeColor)
         .attr("stroke-width", strokeWidth)
-       .attr('d', line)
+        .attr('d', line)
 
-        activeElem.setAttribute("fill","none")
-        activeElem.setAttribute("fill-opacity","0")
+        activeElem.setAttribute("fill", "none")
+        activeElem.setAttribute("fill-opacity", "0")
 
         if(cw.drawPathStrokeDashCheck.checked==true)
             DrawPathSmooth.attr("stroke-dasharray", "8 4")
-        if(cw.drawPathShadowCheck.checked==true)
+            if(cw.drawPathShadowCheck.checked==true)
             DrawPathSmooth.attr("filter", "url(#drop-shadow)")
-               if(cw.drawPathPipe3DCheck.checked==true)
-               {
-                    DrawPathSmooth.attr("filter", "url(#pipe3D)")
-                    cw.drawPathShadowCheck.checked=false
-                    cw.drawPathShadowCheck.disabled=true
-                    drawPathSmooth.removeAttribute("stroke-linejoin")
-              }
-            if(cw.drawPathStrokeArrowCheck.checked==true)
+            if(cw.drawPathPipe3DCheck.checked==true)
+        {
+            DrawPathSmooth.attr("filter", "url(#pipe3D)")
+            cw.drawPathShadowCheck.checked = false
+            cw.drawPathShadowCheck.disabled = true
+            drawPathSmooth.removeAttribute("stroke-linejoin")
+        }
+        if(cw.drawPathStrokeArrowCheck.checked==true)
             drawPathSmooth.setAttribute("marker-end", "url(#"+EndArrowId+")")
 
-            cw.drawPathRightAngleCheck.checked=false
-             activeElem.removeAttribute("rightAngle") 
+            cw.drawPathRightAngleCheck.checked = false
+            activeElem.removeAttribute("rightAngle")
 
-        if(PathClosed==true)
+            if(PathClosed==true)
         {
             var line = d3.line().curve(d3.curveBasisClosed);
             DrawPathSmooth.attr("d", line)
@@ -413,13 +398,17 @@ function drawPathSmoothSelected()
         //  ActiveElemG.attr("pointer-events","none")
 
         cw.smoothPathButton.innerHTML = "linear[S]"
-         DrawPathType="basis"
+        DrawPathType = "basis"
+        if(PathZoneMarker)
+            refreshMarkers()
+
     }
     else
     {
         if(ActiveElem)
-        {     activeElem.setAttribute("fill",fillColor)
-            activeElem.setAttribute("fill-opacity",opacity)
+        {
+            activeElem.setAttribute("fill", fillColor)
+            activeElem.setAttribute("fill-opacity", opacity)
             activeElem.removeAttribute("opacity")
             activeElem.removeAttribute("linearD")
             activeElem.removeAttribute("opacity")
@@ -430,9 +419,12 @@ function drawPathSmoothSelected()
         }
         ActiveElemG.attr("pointer-events", null)
         cw.smoothPathButton.innerHTML = "smooth[S]"
-         DrawPathType="linear"
+        DrawPathType = "linear"
+        if(PathZoneMarker)
+            refreshMarkers()
+
     }
- window.focus()
+    window.focus()
 }
 
 function showDrawPathStrokeBg()
@@ -453,9 +445,8 @@ function showDrawPathStrokeBg()
         }
         if(DrawPathType!="linear")
         DrawPathSmooth.attr("stroke", stroke)
- window.focus()
+        window.focus()
 
-        
 }
 
 function drawPathFillOpacitySelected()
@@ -466,10 +457,9 @@ function drawPathFillOpacitySelected()
         ActiveElem.attr("fill-opacity", fillOpacity)
         if(DrawPathType!="linear")
         DrawPathSmooth.attr("fill-opacity", fillOpacity)
- window.focus()
+        window.focus()
 
 }
-
 
 function drawPathStrokeOpacitySelected()
 {
@@ -479,11 +469,9 @@ function drawPathStrokeOpacitySelected()
         ActiveElem.attr("stroke-opacity", strokeOpacity)
         if(DrawPathType!="linear")
         DrawPathSmooth.attr("stroke-opacity", strokeOpacity)
- window.focus()
+        window.focus()
 
 }
-
-
 
 function drawPathStrokeSelected()
 {
@@ -495,7 +483,7 @@ function drawPathStrokeSelected()
 
         if(cw.drawPathStrokeArrowCheck.checked==true)
         drawPathStrokeArrowChecked()
- window.focus()
+        window.focus()
 
 }
 
@@ -507,7 +495,7 @@ function drawPathStrokeWidthSelected()
         ActiveElem.attr("stroke-width", strokeWidth)
         if(DrawPathType!="linear")
         DrawPathSmooth.attr("stroke-width", strokeWidth)
- window.focus()
+        window.focus()
 
 }
 function drawPathStrokeOpacitySelected()
@@ -518,7 +506,7 @@ function drawPathStrokeOpacitySelected()
         ActiveElem.attr("stroke-opacity", strokeOpacity)
         if(DrawPathType!="linear")
         DrawPathSmooth.attr("stroke-opacity", strokeOpacity)
- window.focus()
+        window.focus()
 
 }
 
@@ -539,47 +527,43 @@ function drawPathStrokeDashChecked()
             if(DrawPathType!="linear")
             drawPathSmooth.removeAttribute("stroke-dasharray")
     }
- window.focus()
+    window.focus()
 
 }
 
-
-
 function drawPathPipe3DChecked()
-  {
-     var cw = addElemPathCw
+{
+    var cw = addElemPathCw
     if(cw.drawPathPipe3DCheck.checked==true)
     {
-         cw.drawPathShadowCheck.checked=false
-         cw.drawPathShadowCheck.disabled=true
+        cw.drawPathShadowCheck.checked = false
+        cw.drawPathShadowCheck.disabled = true
         if(ActiveElem)
-        {    ActiveElem.attr("stroke-linejoin", "round")
+        {
+            ActiveElem.attr("stroke-linejoin", "round")
             ActiveElem.attr("filter", "url(#pipe3D)")
             if(DrawPathType!="linear")
-            DrawPathSmooth.attr("filter", "url(#pipe3D)")
+                DrawPathSmooth.attr("filter", "url(#pipe3D)")
 
         }
     }
     else
-    {      cw.drawPathShadowCheck.disabled=false
+    {
+        cw.drawPathShadowCheck.disabled = false
         if(ActiveElem)
         {
             activeElem.removeAttribute("filter")
             activeElem.removeAttribute("stroke-linejoin")
 
             if(DrawPathType!="linear")
-            drawPathSmooth.removeAttribute("filter")
+                drawPathSmooth.removeAttribute("filter")
         }
 
     }
 
- window.focus()
+    window.focus()
 
-
-  }
-
-
-
+}
 
 function drawPathShadowChecked()
 {
@@ -598,7 +582,7 @@ function drawPathShadowChecked()
             if(DrawPathType!="linear")
             drawPathSmooth.removeAttribute("filter")
     }
- window.focus()
+    window.focus()
 
 }
 
@@ -621,7 +605,7 @@ function drawPathStrokeArrowChecked()
             if(DrawPathType!="linear")
             drawPathSmooth.removeAttribute("marker-end")
     }
- window.focus()
+    window.focus()
 
 }
 //---create and/or changes arrow id=pathArrow for this path--
@@ -672,17 +656,16 @@ function showDrawPathFillBg()
             cw.drawPathFillBg.style.backgroundColor = ""
 
             if(ActiveElem)
-            {
+        {
 
-               if(DrawPathType!="linear")
-                    DrawPathSmooth.attr("fill", fill)
-            else
-               ActiveElem.attr("fill", fill)
+            if(DrawPathType!="linear")
+                DrawPathSmooth.attr("fill", fill)
+                else
+                    ActiveElem.attr("fill", fill)
 
-            }
+        }
 
- window.focus()
-
+        window.focus()
 
 }
 function showDrawPathFillBg()
@@ -691,40 +674,35 @@ function showDrawPathFillBg()
     var fill = cw.drawPathFillSelect.options[cw.drawPathFillSelect.selectedIndex].value
     var opacity = cw.drawPathOpacitySelect.options[cw.drawPathOpacitySelect.selectedIndex].value
 
-
     if(fill!="none")
-            cw.drawPathFillBg.style.backgroundColor = fill
+        cw.drawPathFillBg.style.backgroundColor = fill
         else
             cw.drawPathFillBg.style.backgroundColor = ""
 
-
-
-       if(ActiveElem)
+            if(ActiveElem)
         {
-           if(cw.drawPathFillSelect.selectedIndex==0)
+            if(cw.drawPathFillSelect.selectedIndex==0)
             {
                 ActiveElem.attr("fill", "white")
                 ActiveElem.attr("fill-opacity", 0)
 
             }
-               if(DrawPathType!="linear")
-               {
-                    DrawPathSmooth.attr("fill", fill)
-                    if(fill!="none")DrawPathSmooth.attr("fill", fill)
+            if(DrawPathType!="linear")
+            {
+                DrawPathSmooth.attr("fill", fill)
+                if(fill!="none")DrawPathSmooth.attr("fill", fill)
 
-               }
+            }
             else
             {
-               ActiveElem.attr("fill", fill)
+                ActiveElem.attr("fill", fill)
                 if(fill!="none")ActiveElem.attr("fill-opacity", opacity)
 
             }
 
+        }
 
-      }
-    
- window.focus()
-
+        window.focus()
 
 }
 
@@ -746,8 +724,7 @@ function drawPathFillSelected()
         ActiveElem.attr("fill-opacity", opacity)
 
     }
- window.focus()
-
+    window.focus()
 
 }
 
@@ -757,8 +734,8 @@ function drawPathOpacitySelected()
     var opacity = cw.drawPathOpacitySelect.options[cw.drawPathOpacitySelect.selectedIndex].text
     if(ActiveElem)
         ActiveElem.attr("fill-opacity", opacity)
-        
- window.focus()
+
+        window.focus()
 
 }
 function rotatePathAdjust(factor)
@@ -791,46 +768,11 @@ function rotatePathAdjust(factor)
         RotateAngle = t3r.rotate
 
     }
-        
+
 }
 
 //---------------------DRAG PATH================================
 var AddPathId
-function dragAddPathChecked()
-{
-    var cw = addElemPathCw
-
-    if(cw.dragAddPathCheck.checked)
-    {
-        mySVG.setAttribute("onmousedown", "startDragAddPath(evt)")
-        mySVG.setAttribute("onmousemove", "dragAddPath(evt)")
-        mySVG.setAttribute("onmouseup", "endDragAddPath(evt)")
-        mySVG.removeAttribute("onclick")
-
-        var dragPath=document.getElementById(AddPathId)
-
-        dragPath.setAttribute("class", "dragTargetObj")
-        dragPath.style.cursor="move"
-
-
-    }
-    else
-    {
-        mySVG.removeAttribute("onmousedown")
-        mySVG.removeAttribute("onmousemove")
-        mySVG.removeAttribute("onmouseup")
-
-        var myPath=document.getElementById(AddPathId)
-        myPath.setAttribute("class","pathElem")
-        myPath.setAttribute("onmousedown", "startPathDrawEdit("+AddPathId+",evt)")
-         myPath.style.cursor = "default"
-
-
-
-        startPathDraw()
-    }
-
-}
 
 function dragDrawPathAddFinish()
 {
@@ -883,21 +825,21 @@ function dragDrawPathAddFinish()
         activeElem.removeAttribute("transform")
 
         //DrawX.attr("transform", "translate("+PathPointArray[0][0]+" "+PathPointArray[0][1]+")")
-       /*
-        var circles = dragCircleG.childNodes
-        var pntCnt = 0
-        for(var k = 0; k<circles.length; k++)
-        {
-            if(circles.item(k).getAttribute("class")=="dragTarget")
-            {
-                var pnt = PathPointArray[pntCnt++]
+        /*
+  var circles = dragCircleG.childNodes
+  var pntCnt = 0
+  for(var k = 0; k<circles.length; k++)
+  {
+  if(circles.item(k).getAttribute("class")=="dragTarget")
+  {
+     var pnt = PathPointArray[pntCnt++]
 
-                circles.item(k).setAttribute("transform", "translate("+pnt[0]+","+pnt[1]+")")
+     circles.item(k).setAttribute("transform", "translate("+pnt[0]+","+pnt[1]+")")
 
-            }
+  }
 
-        }
-      */
+  }
+  */
         if(DrawPathType!="linear")
         {
             var sCTM = drawPathSmooth.getCTM()

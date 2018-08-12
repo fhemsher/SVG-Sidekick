@@ -2,7 +2,7 @@ function resetPath()
 {
 
     var cw = addElemPathCw
-   // cw.drawPathRightAngleCheck.checked = false
+    // cw.drawPathRightAngleCheck.checked = false
     //--return---
     DrawX.style("display", "none")
     domDrawX.setAttribute("transform", "")
@@ -22,10 +22,10 @@ function resetPath()
     PathCancelled = false;
     ActiveElemStop = false
     if(document.getElementById("rubberLine"))
-    domActiveElemG.removeChild(document.getElementById("rubberLine"))
-    DrawX.attr("stroke","violet")
+        domActiveElemG.removeChild(document.getElementById("rubberLine"))
+        DrawX.attr("stroke", "violet")
 
-    RubberLine = null;
+        RubberLine = null;
 
     DragThisPoint = null;
     DragPointOK = false;
@@ -35,7 +35,7 @@ function resetPath()
     PrevKeyPath = null
 
     //cw.drawPathRightAngleCheck.checked = false
-    cw.drawPathShadowCheck.disabled=false
+    cw.drawPathShadowCheck.disabled = false
     cw.drawPathPauseButton.disabled = true
     cw.drawPathUndoButton.disabled = true
     cw.drawPathCancelButton.disabled = true
@@ -68,6 +68,23 @@ function resetPath()
 
     }
 
+    if(PathZoneMarker==true)
+    {
+        //---remove previous---
+        for(var k = 0; k<ZoneMarkerArray.length; k++)
+        {
+            var marker = ZoneMarkerArray[k]
+            domActiveElemG.removeChild(marker)
+        }
+        cw.pathZoneMarkerDiv.style.visibility = "hidden"
+        PathZoneMarker = false
+
+        cw.pathZoneMarkerSelect.selectedIndex = 0
+
+        ZoneMarkerArray =[]
+        cw.pathZoneMarkerCheck.checked = false
+    }
+
     ActiveElem = null
     DrawPathSmooth = null
 
@@ -91,22 +108,23 @@ function closeDrawPath()
     var cw = addElemPathCw
     mySVG.removeAttribute('onclick')
 
-    if(cw.dragAddPathCheck.checked)
-    {
-        var myPath=document.getElementById(AddPathId)
-        myPath.setAttribute("class","pathElem")
-        myPath.setAttribute("onmousedown", "startPathDrawEdit("+AddPathId+",evt)")
-         myPath.style.cursor = "default"
-
-    }
-
-    cw.dragAddPathCheck.checked=false
-    cw.dragAddPathCheck.disabled=true
-
-
     DrawPath = false
     DrawPathStart = false
+    if(PathZoneMarker==true)
+    {
+        //---remove previous---
+        for(var k = 0; k<ZoneMarkerArray.length; k++)
+        {
+            var marker = ZoneMarkerArray[k]
+            domActiveElemG.removeChild(marker)
+        }
+        cw.pathZoneMarkerDiv.style.visibility = "hidden"
+        PathZoneMarker = false
 
+        cw.pathZoneMarkerSelect.selectedIndex = 0
+        ZoneMarkerArray =[]
+        cw.pathZoneMarkerCheck.checked = false
+    }
     DrawPath = false
     DragPointArray =[]
     PathPointArray =[]
@@ -180,7 +198,6 @@ function closeDrawPath()
 
         DrawX.style("display", "none")
         coverOff()
-
 
 }
 var PrevKeyPath = null
@@ -410,14 +427,12 @@ function undoDrawPath()
             if((segs-1)<3)
                 cw.drawPathEncloseButton.disabled = true
 
-
-                     if(DrawPathSmooth)
-                     {
-                             var line = d3.line().curve(d3.curveBasis);
-                          DrawPathSmooth.data([PathPointArray])
-                          .attr('d', line)
-                    }
-
+                if(DrawPathSmooth)
+            {
+                var line = d3.line().curve(d3.curveBasis);
+                DrawPathSmooth.data([PathPointArray])
+                .attr('d', line)
+            }
 
         }
     }
@@ -475,13 +490,13 @@ function encloseDrawPath()
 
         PathClosed = true;
         cw.drawPathEncloseButton.innerHTML = "reopen [E]"
-         if(DrawPathSmooth)
-            {
-             var line = d3.line().curve(d3.curveBasisClosed);
+        if(DrawPathSmooth)
+        {
+            var line = d3.line().curve(d3.curveBasisClosed);
 
-              DrawPathSmooth.attr('d', line)
+            DrawPathSmooth.attr('d', line)
 
-            }
+        }
 
     }
     else //when selected via button---
@@ -505,7 +520,7 @@ function reopenDrawPath()
     cw.drawPathPauseButton.disabled = false
     if(DrawPathSmooth)
     {
-       var line = d3.line().curve(d3.curveBasis);
+        var line = d3.line().curve(d3.curveBasis);
         DrawPathSmooth.attr('d', line)
     }
 
@@ -518,11 +533,10 @@ function finishDrawPath()
     var cw = addElemPathCw
     var finishedElem = activeElem.cloneNode(true)
 
-
     var fillColor = cw.drawPathFillSelect.options[cw.drawPathFillSelect.selectedIndex].value
-    var opacity= cw.drawPathOpacitySelect.options[cw.drawPathOpacitySelect.selectedIndex].text
- var elemFill=finishedElem.getAttribute("fill")
-     if(elemFill.indexOf("url")==-1&&cw.drawPathFillSelect.selectedIndex==0)
+    var opacity = cw.drawPathOpacitySelect.options[cw.drawPathOpacitySelect.selectedIndex].text
+    var elemFill = finishedElem.getAttribute("fill")
+    if(elemFill.indexOf("url")==-1&&cw.drawPathFillSelect.selectedIndex==0)
     {
         fillColor = "white"
         opacity = 0
@@ -530,8 +544,8 @@ function finishDrawPath()
     else
     {
 
-    finishedElem.setAttribute("fill", fillColor)
-    finishedElem.setAttribute("fill-opacity", opacity)
+        finishedElem.setAttribute("fill", fillColor)
+        finishedElem.setAttribute("fill-opacity", opacity)
     }
 
     finishedElem.removeAttribute("opacity")
@@ -565,7 +579,6 @@ function finishDrawPath()
     if(cw.drawPathRightAngleCheck.checked==true)
         finishedElem.setAttribute("rightAngle", "true")
 
-
         console.log("bogie - for date")
         var date = new Date()
         var utcMS = date.getTime()
@@ -577,11 +590,6 @@ function finishDrawPath()
 
         finishedElem.setAttribute("pointer-events", "visible")
 
-        //      finishedElem.setAttribute("transform",domActiveElemG.getAttribute("transform") )
-
-        //finishedElem.setAttribute("ll0",ll[0])
-        //finishedElem.setAttribute("ll1",ll[1])
-
         var myTransform = domActiveElemG.getAttribute("transform")
         var linearD = activeElem.getAttribute("d")
 
@@ -592,38 +600,40 @@ function finishDrawPath()
 
     }
 
-    /*
-  domWrapper.appendChild(activeElem)
-  var bb = domWrapper.getBBox()
-  var bbx = bb.x
-  var bby = bb.y
-  var bbw = bb.width
-  var bbh = bb.height
-  var bbCx = bbx+.5*bbw
-  var bbCy = bby+.5*bbh
-  activeElem.setAttribute("transform", "translate("+(-bbCx)+" "+(-bbCy)+")")
-  var bb = domWrapper.getBBox()
-  var bbx = bb.x
-  var bby = bb.y
-  var bbw = bb.width
-  var bbh = bb.height
-  var bbCx = bbx+.5*bbw
-  var bbCy = bby+.5*bbh
-
-
-
-
-  activeElem.removeAttribute("transform")
-
- */
     domActiveElemG.appendChild(activeElem)
-    // AddPathCoordsArray.push([PathLLArray,ActiveScale,id,linearD])
 
     finishedElem.setAttribute("class", "pathElem")
     finishedElem.style.cursor = "default"
 
     domElemG.appendChild(finishedElem)
-    //---update d Celestial map with this path---
+    AddPathId = finishedElem.getAttribute("id")
+
+    if(PathZoneMarker)
+    {
+
+        var unicode = cw.pathZoneMarkerSelect.options[cw.pathZoneMarkerSelect.selectedIndex].value
+        var fill = cw.pathZoneMarkerFillColorSelect.options[cw.pathZoneMarkerFillColorSelect.selectedIndex].value
+        var fontSize = +cw.pathZoneMarkerFontSizeSelect.options[cw.pathZoneMarkerFontSizeSelect.selectedIndex].text
+        var quantity = +cw.pathZoneMarkerQuantitySelect.options[cw.pathZoneMarkerQuantitySelect.selectedIndex].text
+
+        finishedElem.setAttribute("markers", "true")
+        finishedElem.setAttribute("marker-unicode", unicode)
+        finishedElem.setAttribute("marker-fill", fill)
+        finishedElem.setAttribute("marker-fontsize", fontSize)
+        finishedElem.setAttribute("marker-quantity", quantity)
+
+        for(var k = 0; k<ZoneMarkerArray.length; k++)
+        {
+            var marker = ZoneMarkerArray[k]
+            marker.setAttribute("class", AddPathId)
+            domElemG.insertBefore(marker, finishedElem)
+
+        }
+        ZoneMarkerArray =[]
+        PathZoneMarker = false
+        cw.pathZoneMarkerCheck.checked = false
+
+    }
 
     domActiveElemG.removeAttribute("transform")
     domActiveElemG.removeChild(activeElem)
@@ -632,9 +642,6 @@ function finishDrawPath()
     // newPath(id) //---send to server---
     resetPath()
     startPathDraw()
-    AddPathId=finishedElem.getAttribute("id")
-    cw.dragAddPathCheck.disabled=false
-
 
 }
 
