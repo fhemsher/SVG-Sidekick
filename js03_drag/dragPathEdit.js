@@ -10,13 +10,13 @@ var ObjStartY
 function startDragPath(evt)
 {
 
-    if(ActiveElem&&!DraggingObj||ActivePathCopy==true) //---prevents dragging conflicts on other draggable elements---
+    if(ActiveElem&&!DraggingObj) //---prevents dragging conflicts on other draggable elements---
     {
-        if(evt.target.getAttribute("id")=="activeElem"||ActivePathCopy==true)
+        if(evt.target.parentNode.getAttribute("id")=="domActiveElemG")
         {
 
-            if(evt.target.getAttribute("class")=="dragTargetObj")//---all other elems--
-                objDragTarget = evt.target
+            if(evt.target.parentNode.getAttribute("class")=="dragTargetObj")//---all other elems--
+                objDragTarget = evt.target.parentNode
         }
         if(objDragTarget)
         {
@@ -71,11 +71,7 @@ function dragPath(evt)
         transformRequest.setTranslate(Pnt.x, Pnt.y)
         transList.appendItem(transformRequest)
         transList.consolidate()
-        if(DrawPathEditSmooth)
-        {
-            DrawPathEditSmooth.attr("transform", objDragTarget.getAttribute("transform"))
 
-        }
 
     }
 }
@@ -89,7 +85,7 @@ function endDragPath(evt)
 
         DraggingObj = false;
 
-        dragDrawPathEditFinish()
+        //dragDrawPathEditFinish()
 
         removeNoSelectAtText()
 
