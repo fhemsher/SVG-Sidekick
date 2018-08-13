@@ -8,5 +8,5 @@ Place unzipped files into that site's folder.
 To run the application, in **localhost** select the index.htm file. 
 
 You may then create/save/edit SVG basic drawings.
-
+![](http://svgsidekick.com/Images/intro.png)
 To preview how this application works go to: http://svgSidekick.com
