@@ -18,8 +18,8 @@ box-shadow: 4px 4px 5px #888;
 <body onload=sendSize() style='font-family:arial'>
 <center>
 <div id=containerDiv style='padding:5px;border-radius:10px;border:1px solid black;background:linen'>
-<table style=width:100%><tr><td style=width:90% align=center><span id=editSpan>Create &amp; Plant Pgon Symbols</span></td><td align=right><button onClick=parent.closeDrawPgon()>X</button></td></tr></table>
-<div style='text-align:left;font-size:80%;width:260px'><i>From the drop down menu on left select a symbol, then choose its size and color(s)</i></div>
+<table style=width:100%><tr><td style=width:90% align=center><span id=pgonDrawSpan>Create &amp; Plant Pgon Symbols</span></td><td align=right><button onClick=parent.closeDrawPgon()>X</button></td></tr></table>
+<div style='text-align:left;font-size:80%;width:260px'><span id=editPgonSpan><i>From the drop down menu on left select a symbol, then choose its size and color(s)</i></span></div>
 
  <TABLE border=2  style=width:90%>
  <TR><TD align=center valign=top>
@@ -120,15 +120,15 @@ Color 3:<select onChange=symbolRegisterColor3Selected() disabled  title="symbol 
 <button disabled style='border-color:violet' id=registerSymbolButton onClick=registerSymbol();this.disabled=true >Create Symbol</button></CENTER>
 <div style='text-align:justify;font-size:70%;width:140px'><i>Select created symbol at right menu, then click on drawing to locate it.<br><br>Toggle 'undo' button to remove last symbol(s).</i></div>
 
- <input type="checkbox" id=dragSymbolCheck onClick=parent.dragSymbolChecked() />:Drag Symbols<br>
  <span id=deleteSymbolSpan style=background:red><input  type="checkbox" id=deleteSymbolCheck onClick=parent.deleteSymbolChecked() />:Delete Symbols</span><br>
  <input type="checkbox" id=resizeSymbolCheck onClick=parent.resizeSymbolChecked() />:Resize Symbols<br>
  <input type="checkbox" id=colorSymbolCheck onClick=parent.colorSymbolChecked() />:Color Symbols<br>
  <input type="checkbox" id=shadowSymbolCheck onClick=parent.shadowSymbolChecked() />:Add Shadow
- <center><button id=drawSymbolTopButton style=background:white;font-size:120%;font-weight:bold;color:maroon  title='Move to top' onClick=parent.topDrawSymbol()>&#x21E7;</button>
+ <center><div id=topBotDiv style=visibility:hidden>
+<button id=drawSymbolTopButton style=background:white;font-size:120%;font-weight:bold;color:maroon  title='Move to top' onClick=parent.topDrawSymbol()>&#x21E7;</button>
     <button id=drawSymbolBotButton style=background:white;font-size:120%;font-weight:bold;color:maroon;   title='Move to bottom' onClick=parent.botDrawSymbol()>&#x21E9;</button>
- </center>
 
+ </div></center>
 </TD>
 <td align=center valign=top>
 <div id=plantSymbolDiv style='background:white;border:3px inset violet;width:75px;height:280px;overflow-y:auto;overflow-x:hidden;'>
@@ -361,12 +361,11 @@ function registerSymbol()
             polys.item(2).setAttribute("fill","black")
     }
     NativeIdSelect=null
-    dragSymbolCheck.checked=false
     deleteSymbolCheck.checked=false
     resizeSymbolCheck.checked=false
     colorSymbolCheck.checked=false
     parent.deleteSymbolChecked()
-    parent.dragSymbolChecked()
+
     parent.resizeSymbolChecked()
     parent.colorSymbolChecked()
 
@@ -673,7 +672,7 @@ function buildSymbolColorSelection()
 function sendSize()
 {
 
-       
+    buildSymbolColorSelection()
    var width=400
    var height=444
 
