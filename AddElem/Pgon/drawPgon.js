@@ -25,7 +25,6 @@ function closeDrawPgon()
         mySVG.removeAttribute("onmousemove")
         mySVG.removeAttribute("onmouseup")
         cw.deleteSymbolCheck.checked = false
-        cw.dragSymbolCheck.checked = false
         cw.resizeSymbolCheck.checked = false
         cw.colorSymbolCheck.checked = false
         cw.undoButton.disabled = true
@@ -67,8 +66,24 @@ function editPgonStart(evt)
 
     if(isRightMB&&ZoomDrawing==false )
     {
-        //openIframe("AddElem", "addElemPgon", 0)
-       openAddPgonDraw()
+       var cw = addElemPgonCw
+       // PgonActiveElem = evt.target.parentNode
+                cw.topBotDiv.style.visibility = "visible"
+                if(addElemPgonLoad)
+                {
+                        openIframe("AddElem", "addElemPgon", 0)
+                        cw.containerDiv.style.background = "orange"
+                        cw.pgonDrawSpan.innerHTML = "Edit Symbols"
+                        cw.editPgonSpan.innerHTML = "Select a checkbox below to choose the specific edit type. Then click on symbol to edit it."
+
+                }
+                else //--allow time to create icons---
+                {
+                        openIframe("AddElem", "addElemPgon", 0)
+
+                }
+              dragSymbol() 
+
     }
     if(isRightMB&&ZoomDrawing==true ) //---zoom drag
     {
@@ -79,11 +94,15 @@ function editPgonStart(evt)
 
         var dragTarget=evt.target.parentNode
         var classed=dragTarget.getAttribute("class")
+
         dragTarget.setAttribute("class", "dragTargetObj")
         dragTarget.removeAttribute("onmousedown")
         dragTarget.setAttribute("style","cursor:move")
        dragTarget.setAttribute("opacity",.4)
+
+
         DrawX.style("display", "none")
+
 
         ZoomDraggedElems.push([dragTarget,"editPgonStart(evt)",classed])
     }
@@ -113,11 +132,11 @@ function trackDrawPgon()
     }
 }
 var DragSymbols = false
-function dragSymbolChecked()
+function dragSymbol()
 {
     var cw = addElemPgonCw
-    if(cw.dragSymbolCheck.checked==true)
-    {
+   // if(cw.dragSymbolCheck.checked==true)
+   // {
         DragSymbols = true
         DrawX.style("display", "none")
         mySVG.removeAttribute("onclick")
@@ -152,7 +171,7 @@ function dragSymbolChecked()
 
             }
         }
-
+   /*
 
     }
     else
@@ -164,7 +183,7 @@ function dragSymbolChecked()
         mySVG.removeAttribute("onmouseup")
 
     }
-
+    */
 }
 var ResizeSymbols = false
 function resizeSymbolChecked()
@@ -180,7 +199,6 @@ function resizeSymbolChecked()
         mySVG.removeAttribute("onmousemove")
         mySVG.removeAttribute("onmouseup")
         cw.deleteSymbolCheck.checked = false
-        cw.dragSymbolCheck.checked = false
         cw.colorSymbolCheck.checked = false
         cw.shadowSymbolCheck.checked = false
            cw.drawSymbolTopButton.style.borderStyle=""
@@ -246,7 +264,6 @@ function shadowSymbolChecked()
         mySVG.removeAttribute("onmouseup")
         cw.resizeSymbolCheck.checked = false
         cw.deleteSymbolCheck.checked = false
-        cw.dragSymbolCheck.checked = false
         cw.colorSymbolCheck.checked = false
            cw.drawSymbolTopButton.style.borderStyle=""
             cw.drawSymbolBotButton.style.borderStyle=""
@@ -301,7 +318,6 @@ function colorSymbolChecked()
         mySVG.removeAttribute("onmousemove")
         mySVG.removeAttribute("onmouseup")
         cw.deleteSymbolCheck.checked = false
-        cw.dragSymbolCheck.checked = false
         cw.resizeSymbolCheck.checked = false
         cw.shadowSymbolCheck.checked = false
            cw.drawSymbolTopButton.style.borderStyle=""
@@ -377,7 +393,6 @@ function deleteSymbolChecked()
         mySVG.removeAttribute("onmousedown")
         mySVG.removeAttribute("onmousemove")
         mySVG.removeAttribute("onmouseup")
-        cw.dragSymbolCheck.checked = false
         cw.resizeSymbolCheck.checked = false
         cw.colorSymbolCheck.checked = false
         cw.shadowSymbolCheck.checked = false
@@ -390,7 +405,6 @@ function deleteSymbolChecked()
         SymbolTop = false
         SymbolBot = false
 
-        cw.dragSymbolCheck.checked = false
         for(var k = 0; k<domElemG.childNodes.length; k++)
         {
             var symbol=domElemG.childNodes[k]
@@ -427,12 +441,10 @@ function deleteSymbol(evt)
 
         cw.undoButton.disabled = true
         cw.deleteSymbolCheck.disabled = true
-        cw.dragSymbolCheck.disabled = true
         cw.resizeSymbolCheck.disabled = true
         cw.colorSymbolCheck.disabled = true
 
         cw.deleteSymbolCheck.checked = false
-        cw.dragSymbolCheck.checked = false
         cw.resizeSymbolCheck.checked = false
         cw.colorSymbolCheck.checked = false
         cw.shadowSymbolCheck.checked = false
@@ -464,7 +476,6 @@ function topDrawSymbol()
         cw.shadowSymbolCheck.checked = false
         cw.resizeSymbolCheck.checked = false
         cw.deleteSymbolCheck.checked = false
-        cw.dragSymbolCheck.checked = false
         cw.colorSymbolCheck.checked = false
        ShadowSymbols = false
         DeleteSymbols = false
@@ -515,7 +526,6 @@ function botDrawSymbol()
         cw.shadowSymbolCheck.checked = false
         cw.resizeSymbolCheck.checked = false
         cw.deleteSymbolCheck.checked = false
-        cw.dragSymbolCheck.checked = false
         cw.colorSymbolCheck.checked = false
        ShadowSymbols = false
         DeleteSymbols = false
@@ -584,7 +594,6 @@ function plantPgonSymbol(event)
         //PgonDrawArray.push(activeElem)
         cw.undoButton.disabled = false
         cw.deleteSymbolCheck.disabled = false
-        cw.dragSymbolCheck.disabled = false
 
     }
 }
@@ -613,11 +622,9 @@ function undoButtonClicked()
     {    var cw = addElemPgonCw   
         cw.undoButton.disabled = true
         cw.deleteSymbolCheck.disabled = true
-        cw.dragSymbolCheck.disabled = true
         cw.drawSymbolTopButton.style.borderStyle=""
         cw.drawSymbolBotButton.style.borderStyle=""
         cw.deleteSymbolCheck.checked = false
-        cw.dragSymbolCheck.checked = false
 
     }
 
