@@ -85,9 +85,9 @@ onmousedown="return false;"
 	<script charset="UTF-8" type="text/javascript" src="js03_drag/dragPathEdit.js"></script>
 	<script charset="UTF-8" type="text/javascript" src="AddElem/Path/pathEditZoneMarker.js"></script>
 <div id=addElemPgonFrameDiv style='padding:10px;border-radius:10px;position:fixed;visibility:hidden;width:1px;height:1px;overflow:hidden'><iframe id=addElemPgonFrame style='border-width:0px;height:1px;overflow:hidden;'   scrolling='no' frameborder='0'   ></iframe></div>
-<div id=addElemPgonEditFrameDiv style='padding:10px;border-radius:10px;position:fixed;visibility:hidden;width:1px;height:1px;overflow:hidden'><iframe id=addElemPgonEditFrame style='border-width:0px;height:1px;overflow:hidden;'   scrolling='no' frameborder='0'   ></iframe></div>
 	<script charset="UTF-8" type="text/javascript" src="AddElem/Pgon/drawPgon.js"></script>
-	<script charset="UTF-8" type="text/javascript" src="js03_drag/dragObjPgon.js"></script>
+    	<script charset="UTF-8" type="text/javascript" src="js03_drag/dragObjPgon.js"></script>
+
 <div id=addElemTextureFrameDiv style='padding:10px;border-radius:10px;position:fixed;visibility:hidden;width:1px;height:1px;overflow:hidden'><iframe id=addElemTextureFrame style='border-width:0px;height:1px;overflow:hidden;'   scrolling='no' frameborder='0'   ></iframe></div>
 	<script charset="UTF-8" type="text/javascript" src="AddElem/Texture/drawTexture.js"></script>
 	<script charset="UTF-8" type="text/javascript" src="AddElem/Texture/textures.js"></script>
@@ -132,9 +132,9 @@ stroke-width: 0;
 <TD>
 <table>
     <tr>
-        <td>Save SVG As:</td>
-        <td><input id="inputFileNameToSaveAs" placeholder="Include your fileName.svg"></input></td>
-        <td><button Title="Save current drawing to your computer" onclick="saveSvgAsFile()">save</button></td>
+        <td>Save/Edit SVG:</td>
+        <td><input id="inputFileNameToSaveAs" placeholder="Save fileName.svg"></input></td>
+        <td><button Title="Save current drawing to your computer for future editing" onclick="saveSvgAsFile()">save</button></td>
     </tr>
  </table>
 </TD>
@@ -156,7 +156,7 @@ stroke-width: 0;
         <td><nobr>Publish SVG As:</nobr></td>
         <td><input id="inputPublishFileNameToSaveAs" placeholder="Include your fileName.svg"></input></td>
         <td><button Title="Save current drawing to your computer" onclick="publishSvgAsFile()">send</button></td>
-        <td><button id=closePublishDivButton style='visibility:hidden' title="Close" onclick=closePublishDiv()>Close</button></td>
+        <td><button id=closePublishDivButton style='visibility:hidden;border-width:0px;' title="Close" onclick=closePublishDiv()><u style=color:blue>Close</u></button></td>
     </tr>
  </table>
 </div>
@@ -178,7 +178,8 @@ stroke-width: 0;
 
 <p></p>
 
- <div style='width:100%;text-align:right' >Download SVGsidekick .zip file <a href="javascript:downloadSite()" >SVGsidekick.com Files</a></div>
+
+<div style='width:100%;text-align:right' >Download SVGsidekick .zip file <a href="https://github.com/fhemsher/SVG-Sidekick"  target="_blank">SVGsidekick.com Files</a></div>
 
 <div id=emDiv style='width:100%;text-align:right' ></div>
 </center>
@@ -759,20 +760,7 @@ function writeEM()
    emDiv.innerHTML=em +" &nbsp;&nbsp;<span style=color:blue>Last Update: 8/12/2018</span>"
 
 }
-function downloadSite()
-{
 
-var zip_file_path = "SiteZip/SVGsidekick.zip"
-var zip_file_name = "SVGsidekickSite"
-var a = document.createElement("a");
-document.body.appendChild(a);
-a.style = "display: none";
-a.href = zip_file_path;
-a.download = zip_file_name;
-a.click();
-document.body.removeChild(a);
-
-}
 
 </script>
 
