@@ -21,13 +21,13 @@ var Grid
 //var AddIsaG //---all added ISA symbols container---
 //var AddIconG //---all added icon container---
 var CoverRect
-var ProcessRect
-var ComponentRect
+
 var ActiveElemG
 var ActiveElem = null
 var Wrapper //---svg wrapper---
 var DrawX
 var DragDot //---used for circles/rects---
+var ImgDragArrow
 var MySVG
 //---called via onload---
 function initD3Svg()
@@ -165,21 +165,7 @@ feMerge.append("feMergeNode")
    .attr("shape-rendering","geometricPrecision")
     .attr("text-rendering","geometricPrecision")
 
-   ProcessRect=MySVG.append("rect")
-   .attr("id","processRect")
-   .attr("pointer-events","none")
-   .attr("stroke","none")
-   .attr("fill","#7df9ff")
-   .attr("fill-opacity",".4")
-
-   ComponentRect=MySVG.append("rect")
-   .attr("id","componentRect")
-   .attr("pointer-events","none")
-   .attr("stroke","none")
-   .attr("fill","#c9a0dc")
-   .attr("fill-opacity",".4")
-
-    DrawX = MySVG.append("g") //---place in mysvg so zoom works---
+     DrawX = MySVG.append("g") //---place in mysvg so zoom works---
     .style("display", "none")
     .attr("id", "domDrawX")
     .attr("stroke", "violet")
@@ -217,7 +203,17 @@ feMerge.append("feMergeNode")
     .attr("vector-effect", "non-scaling-stroke")
     .style("visibility", "hidden")
     .style("cursor", "default")
-                         
+    ImgDragArrow=MySVG.append("image")
+    .attr("id","imgDragArrow")
+    .attr("href","Images/ImgDragArrow.png")
+    .attr("class","dragTargetObj")
+    .attr("width","25")
+    .attr("height","25")
+    .attr("x","-12.5")
+    .attr("y","-12.5")
+    .style("visibility", "hidden")
+    .style("cursor", "nw-resize")
+
 
    var svgText=MySVG.append("text")
    .attr("id","textSVG")
