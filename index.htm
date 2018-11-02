@@ -84,9 +84,9 @@ onmousedown="return false;"
 	<script charset="UTF-8" type="text/javascript" src="js03_drag/dragPathPointEdit.js"></script>
 	<script charset="UTF-8" type="text/javascript" src="js03_drag/dragPathEdit.js"></script>
 	<script charset="UTF-8" type="text/javascript" src="AddElem/Path/pathEditZoneMarker.js"></script>
-<div id=addElemPgonFrameDiv style='padding:10px;border-radius:10px;position:fixed;visibility:hidden;width:1px;height:1px;overflow:hidden'><iframe id=addElemPgonFrame style='border-width:0px;height:1px;overflow:hidden;'   scrolling='no' frameborder='0'   ></iframe></div>
-	<script charset="UTF-8" type="text/javascript" src="AddElem/Pgon/drawPgon.js"></script>
-    	<script charset="UTF-8" type="text/javascript" src="js03_drag/dragObjPgon.js"></script>
+<div id=addElemSymbolFrameDiv style='padding:10px;border-radius:10px;position:fixed;visibility:hidden;width:1px;height:1px;overflow:hidden'><iframe id=addElemSymbolFrame style='border-width:0px;height:1px;overflow:hidden;'   scrolling='no' frameborder='0'   ></iframe></div>
+	<script charset="UTF-8" type="text/javascript" src="AddElem/Symbol/drawSymbol.js"></script>
+	<script charset="UTF-8" type="text/javascript" src="js03_drag/dragObjSymbol.js"></script>
 
 <div id=addElemTextureFrameDiv style='padding:10px;border-radius:10px;position:fixed;visibility:hidden;width:1px;height:1px;overflow:hidden'><iframe id=addElemTextureFrame style='border-width:0px;height:1px;overflow:hidden;'   scrolling='no' frameborder='0'   ></iframe></div>
 	<script charset="UTF-8" type="text/javascript" src="AddElem/Texture/drawTexture.js"></script>
@@ -232,9 +232,11 @@ stroke-width: 0;
             <button onmouseover=this.style.borderColor="lime" onmouseout=this.style.borderColor=''  id=openAddPathButton  style=background-color:linen onClick=openAddPathDraw()>Paths</button>
             <button onmouseover=this.style.borderColor="lime" onmouseout=this.style.borderColor=''  id=openAddArcButton  style=background-color:linen onClick=openAddArcDraw()>Arcs</button>
             <button onmouseover=this.style.borderColor="lime" onmouseout=this.style.borderColor=''  id=openAddPolygonButton  style=background-color:linen onClick=openAddPolygonDraw()>Polygons</button>
-            <button onmouseover=this.style.borderColor="lime" onmouseout=this.style.borderColor=''  id=openAddPgonButton  style=background-color:linen onClick=openAddPgonDraw()>Symbols</button>
             <button onmouseover=this.style.borderColor="lime" onmouseout=this.style.borderColor=''  id=openAddIconButton  style=background-color:linen onClick=openAddIconDraw()>Icons</button>
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<button title="Add pattern/texture fill to elements" onmouseover=this.style.borderColor="lime" onmouseout=this.style.borderColor=''  id=openAddTextureButton  style=background-color:linen onClick=openAddTexture()><i>Textures</i></button>
+            <button onmouseover=this.style.borderColor="lime" onmouseout=this.style.borderColor=''  id=openAddSymbolButton  style=background-color:#538BBA;color:white onClick=openAddSymbolDraw()>Symbols</button>
+
+
+  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<button title="Add pattern/texture fill to elements" onmouseover=this.style.borderColor="lime" onmouseout=this.style.borderColor=''  id=openAddTextureButton  style=background-color:linen onClick=openAddTexture()><i>Textures</i></button>
             <button title="" onmouseover=this.style.borderColor="lime" onmouseout=this.style.borderColor=''  id=openAddGradientButton  style=background-color:linen onClick=openAddGradient()><i>Gradients</i></button>
              &nbsp;&nbsp;
             <button title="Import image from your computer as background template" onmouseover=this.style.borderColor="lime" onmouseout=this.style.borderColor=''  id=openAddBGimageButton   style=background-color:ghostwhite onClick=openAddBGimage()   >Template Image</button>
