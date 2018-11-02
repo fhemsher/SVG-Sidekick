@@ -7,7 +7,7 @@ function disableAllButtons()
     openAddRectButton.disabled=true
     openAddTextButton.disabled=true
     openAddPathButton.disabled=true
-    openAddPgonButton.disabled=true
+    openAddSymbolButton.disabled=true
     openAddPolygonButton.disabled=true
         openAddBGimageButton.disabled=true
 
@@ -24,7 +24,7 @@ function enableAllButtons()
     openAddRectButton.disabled=false
     openAddTextButton.disabled=false
     openAddPathButton.disabled=false
-    openAddPgonButton.disabled=false
+    openAddSymbolButton.disabled=false
     openAddPolygonButton.disabled=false
 
     openAddTextureButton.disabled=false
@@ -38,7 +38,7 @@ function enableAllButtons()
     openAddRectButton.style.borderColor=""
     openAddTextButton.style.borderColor=""
     openAddPathButton.style.borderColor=""
-    openAddPgonButton.style.borderColor=""
+    openAddSymbolButton.style.borderColor=""
     openAddPolygonButton.style.borderColor=""
     openAddTextureButton.style.borderColor=""
     openAddGradientButton.style.borderColor=""
@@ -73,7 +73,7 @@ function openAddBGimage()
     }
 
         openIframe("AddElem", "addElemBGimage", 0)
-       // mySVG.setAttribute("onclick", "plantPgonSymbol(event)")
+       // mySVG.setAttribute("onclick", "plantSymbolSymbol(event)")
 
         openAddBGimageButton.style.borderStyle = "inset"
 }
@@ -81,15 +81,15 @@ function openAddBGimage()
 
 
 
-function openAddPgonDraw()
+function openAddSymbolDraw()
 {
-    if(addElemPgonLoad==true)
-        startPgonDraw()
+    if(addElemSymbolLoad==true)
+        startSymbolDraw()
 
-        openIframe("AddElem", "addElemPgon", 0)
-        mySVG.setAttribute("onclick", "plantPgonSymbol(event)")
+        openIframe("AddElem", "addElemSymbol", 0)
+        mySVG.setAttribute("onclick", "plantSymbolSymbol(event)")
 
-        openAddPgonButton.style.borderStyle = "inset"
+        openAddSymbolButton.style.borderStyle = "inset"
 }
 function openAddIconDraw()
 {
@@ -108,7 +108,7 @@ function openAddTexture()
         startTextureDraw()
 
         openIframe("AddElem", "addElemTexture", 0)
-        // mySVG.setAttribute("onclick", "plantPgonSymbol(event)")
+        // mySVG.setAttribute("onclick", "plantSymbolSymbol(event)")
 
         openAddTextureButton.style.borderStyle = "inset"
 }
@@ -119,7 +119,7 @@ function openAddGradient()
         startGradientDraw()
 
         openIframe("AddElem", "addElemGradient", 0)
-        // mySVG.setAttribute("onclick", "plantPgonSymbol(event)")
+        // mySVG.setAttribute("onclick", "plantSymbolSymbol(event)")
 
         openAddGradientButton.style.borderStyle = "inset"
 }
@@ -199,7 +199,7 @@ function isAddElemOpen() //---called from iframeSelection.js---
     if(addElemEllipseViz==true)AddElemOpen = true;
     if(addElemRectViz==true)AddElemOpen = true;
     if(addElemTextViz==true)AddElemOpen = true;
-    if(addElemPgonViz==true)AddElemOpen = true;
+    if(addElemSymbolViz==true)AddElemOpen = true;
     if(addElemTextureViz==true)AddElemOpen = true;
     if(addElemGradientViz==true)AddElemOpen = true;
     if(addElemPolygonViz==true)AddElemOpen = true;
@@ -276,7 +276,7 @@ function closeIframe(name)
         openAddRectButton.style.borderStyle = ""
         openAddTextButton.style.borderStyle = ""
         openAddPathButton.style.borderStyle = ""
-        openAddPgonButton.style.borderStyle = ""
+        openAddSymbolButton.style.borderStyle = ""
         openAddPolygonButton.style.borderStyle = ""
         openAddTextureButton.style.borderStyle = ""
         openAddGradientButton.style.borderStyle = ""
@@ -309,7 +309,7 @@ function closeAllFrames()
         openAddRectButton.style.borderStyle = ""
         openAddTextButton.style.borderStyle = ""
         openAddPathButton.style.borderStyle = ""
-        openAddPgonButton.style.borderStyle = ""
+        openAddSymbolButton.style.borderStyle = ""
         openAddPolygonButton.style.borderStyle = ""
         openAddTextureButton.style.borderStyle = ""
         openAddGradientButton.style.borderStyle = ""
@@ -336,8 +336,8 @@ function closeAllFrames()
 
                 if(name=="addElemPath")
                 closeDrawPath()
-                if(name=="addElemPgon")
-                closeDrawPgon()
+                if(name=="addElemSymbol")
+                closeDrawSymbol()
 
                 var myDiv = d3.select("#"+name+"FrameDiv")
                 myDiv.style("height", 1+"px")
@@ -353,11 +353,11 @@ addElemBGimageLoad = false
 var addElemCircleLoad = false
 var addElemArcLoad = false
 var addElemIconLoad = false
-var addElemPgonLoad = false
+var addElemSymbolLoad = false
 var addElemPolygonLoad = false
 var addElemTextureLoad = false
 var addElemGradientLoad = false
-var addElemPgonEditLoad = false
+var addElemSymbolEditLoad = false
 var addElemEllipseLoad = false
 var addElemRectLoad = false
 var addElemTextLoad = false
@@ -368,11 +368,11 @@ var addElemCircleViz = false
 var addElemArcViz = false
 var addElemIconViz = false
 
-var addElemPgonViz = false
+var addElemSymbolViz = false
 var addElemPolygonViz = false
 var addElemTextureViz = false
 var addElemGradientViz = false
-var addElemPgonEditViz = false
+var addElemSymbolEditViz = false
 var addElemEllipseViz = false
 var addElemRectViz = false
 var addElemTextViz = false
@@ -383,11 +383,11 @@ var addElemCircleCw
 var addElemArcCw
 var addElemIconCw
  var addElemBGimageCw
-var addElemPgonCw
+var addElemSymbolCw
 var addElemPolygonCw
 var addElemTextureCw
 var addElemGradientCw
-var addElemPgonEditCw
+var addElemSymbolEditCw
 var addElemEllipseCw
 var addElemRectCw
 var addElemTextCw
@@ -406,8 +406,8 @@ iframeNameArray[2] = 'addElemPathEdit'
 iframeNameArray[3] = 'addElemCircle'
 iframeNameArray[4] = 'addElemEllipse'
 iframeNameArray[5] = 'addElemRect'
-iframeNameArray[6] = 'addElemPgon'
-iframeNameArray[7] = 'addElemPgonEdit'
+iframeNameArray[6] = 'addElemSymbol'
+iframeNameArray[7] = 'addElemSymbolEdit'
 iframeNameArray[8] = 'addElemTexture'
 iframeNameArray[9] = 'addElemIcon'
 iframeNameArray[10] = 'addElemGradient'
