@@ -156,6 +156,7 @@ stroke-width: 0;
         <td><nobr>Publish SVG As:</nobr></td>
         <td><input id="inputPublishFileNameToSaveAs" placeholder="Include your fileName.svg"></input></td>
         <td><button Title="Save current drawing to your computer" onclick="publishSvgAsFile()">send</button></td>
+        <td><button style='background:lightgreen' Title="Publish: Mobile-Friendly" onclick="openMobileHelp()">Mobile</button></td>
         <td><button id=closePublishDivButton style='visibility:hidden;border-width:0px;' title="Close" onclick=closePublishDiv()><u style=color:blue>Close</u></button></td>
     </tr>
  </table>
@@ -267,6 +268,48 @@ stroke-width: 0;
       <img align=left src="Images/zoomRedButton.png" alt="" width="25" height="25" />
     </div>
 </div>
+<div id=publishMobileDiv style='background:lightgreen;visibility:hidden;position:fixed;top:80px;left:40%;width:400px;height:1px;border:1px solid blue;border-radius:5px;padding:10px;overflow:hidden'>
+    <table style=width:100%><td style=width:90%; align=center><h7><b>Publish SVG Drawing: Mobile-Friendly</b></h7></td><td align=right><button onclick=closeMobileHelp()>X</button></td></table>
+    <div style=text-align:justify>
+    Excellent mobile-friendly interactive SVG zoom/pan<br>
+   The following is the typical HTML source at your website's web page to publish your drawing for mobile units.
+   <center>Copy (Ctrl-C) the below:</center>
+   <textarea style='width:400px;height:400px;font-size:80%;'>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Zoom SVG Drawing using Leaflet</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+</head>
+<body onload=init() style='padding:0px;font-family:arial'>
+<div style=position:absolute;top:0px;left:0px id="MyDrawing" ></div>
+<script id=myScript>
+var MyDrawing = L.map('MyDrawing', {
+    crs: L.CRS.Simple,
+    zoomControl:false //--remove +- buttons---
+});
+function init()
+{
+    var myDiv=document.getElementsByTagName("div")[0]
+    myDiv.style.width=window.innerWidth+"px"
+    myDiv.style.height=window.innerHeight+"px"
+    var bounds = [[0,0], [window.innerWidth,window.innerHeight]];
+    var image = L.imageOverlay('mySVGFile.svg', bounds).addTo(MyDrawing);
+    MyDrawing.fitBounds(bounds);
+}
+</script>
+</body>
+</html>
+   </textarea>
+
+
+    </div>
+</div>
+
+
 </body>
 <script>
 function openHelp()
@@ -294,6 +337,21 @@ function closeZoomHelp()
 	d3.select("#zoomHelpDiv").transition().duration(500).style("height", height+"px")
 	setTimeout('zoomHelpDiv.style.visibility="hidden"',600)
 }
+
+function openMobileHelp()
+{
+	var height=publishMobileDiv.scrollHeight
+	d3.select("#publishMobileDiv").transition().duration(500).style("height", height+"px")
+	publishMobileDiv.style.visibility="visible"
+}
+function closeMobileHelp()
+{
+	var height=1
+	d3.select("#publishMobileDiv").transition().duration(500).style("height", height+"px")
+	setTimeout('publishMobileDiv.style.visibility="hidden"',600)
+}
+
+
 function svgCopy()
 {
     svgSaveDiv.style.display="block"
@@ -302,65 +360,12 @@ function svgCopy()
 
 
 
-function saveSvgAsFilexxx()
-{
 
-  if(inputFileNameToSaveAs.value!="")
-  {
-        showSaveSVG()
-        showSourceSVG()
-
-        var textToSave = svgSaveDiv.innerText.replace(/\\n/g,"")
-        //---or use this---
-        //var textToSave = new XMLSerializer().serializeToString(mySVG)
-
-        var textToSaveAsBlob = new Blob([textToSave], {type:"text/xml"});
-        var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
-        var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;
-        if(fileNameToSaveAs.indexOf(".svg")==-1)
-        fileNameToSaveAs+=".svg"
-        var downloadLink = document.createElement("a");
-        downloadLink.download = fileNameToSaveAs;
-        downloadLink.innerHTML = "Download File";
-        downloadLink.href = textToSaveAsURL;
-        downloadLink.onclick = destroyClickedElement;
-        downloadLink.style.display = "none";
-        document.body.appendChild(downloadLink);
-
-        downloadLink.click();
-    }
-}
 function destroyClickedElement(event)
 {
     document.body.removeChild(event.target);
 }
 
-function clearButtonClickedxxx()
-{
-   closeAllFrames()
-
- //---retain gradients/patterns/symbols---
-
- for(var k=domAddPathG.childNodes.length-1;k>=0;k--)
-    domAddPathG.removeChild(domAddPathG.childNodes.item(k))
- for(var k=domAddElemG.childNodes.length-1;k>=0;k--)
-       domAddElemG.removeChild(domAddElemG.childNodes.item(k))
- for(var k=domAddSymbolG.childNodes.length-1;k>=0;k--)
-    domAddSymbolG.removeChild(domAddSymbolG.childNodes.item(k))
-        for(var k=domActiveElemG.childNodes.length-1;k>=0;k--)
-        {
-          if(domActiveElemG.childNodes.item(k).getAttribute("id")!="domDrawX"&&domActiveElemG.childNodes.item(k).getAttribute("id")!="dragDot")
-            domActiveElemG.removeChild(domActiveElemG.childNodes.item(k))
-       }
- for(var k=domAddIconG.childNodes.length-1;k>=0;k--)
-    domAddIconG.removeChild(domAddIconG.childNodes.item(k))
-
-       inputFileNameToSaveAs.value=""
-       inputFileNameToSaveAs.placeholder="Include your fileName.svg"
-
-            showSourceSVG()
-            showSaveSVG()
-}
 
 //================insert/edit existing svg================
 
@@ -759,7 +764,7 @@ function writeEM()
     em+="gm"
     em+="ail."
     em+="com"
-   emDiv.innerHTML=em +" &nbsp;&nbsp;<span style=color:blue>Last Update: 8/12/2018</span>"
+   emDiv.innerHTML=em +" &nbsp;&nbsp;<span style=color:blue>Last Update: 12/16/2018</span>"
 
 }
 
