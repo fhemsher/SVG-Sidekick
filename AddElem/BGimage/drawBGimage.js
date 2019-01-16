@@ -17,6 +17,7 @@ function placeDrawBGimage()
     .attr("id", "activeElem")
     .attr("class", "dragTargetObj")
     .attr("pointer-events", null)
+   // .attr("transform", "translate("+SVGx+" "+SVGy+")")
 
     ActiveBGimage = ActiveElem.append("image")
     .attr("id", "activeBGimage")
@@ -24,8 +25,8 @@ function placeDrawBGimage()
     .attr("opacity", opacity)
     .attr("x", 0)
     .attr("y", 0)
-    .attr("height", BGimageHeight)
-    .attr("width", BGimageWidth)
+    .attr("height", BGImageHeight)
+    .attr("width", BGImageWidth)
     .attr("href",ImageHREF)
 
 
@@ -39,7 +40,7 @@ function placeDrawBGimage()
 
 
          ImgDragArrow.attr("class", "dragTargetObj")
-        ImgDragArrow.attr("transform", "translate("+(SVGx+BGimageWidth)+" "+(SVGy+BGimageHeight)+")")
+        ImgDragArrow.attr("transform", "translate("+(SVGx+BGImageWidth)+" "+(SVGy+BGImageHeight)+")")
         ImgDragArrow.style("visibility", "visible")
 
 
@@ -83,15 +84,33 @@ function loadBGimageFile()
             ImageHREF = reader.result
              var image = new Image();
             image.src = reader.result;
-            image.onload = function() {
+            image.onload = function()
+            {
 
-                BGimageWidth=image.naturalWidth
-                BGimageHeight=image.naturalHeight
-                cw.bgImageWidthValue.value = BGimageWidth
-                cw.bgImageHeightValue.value = BGimageHeight
+                var initWidth=image.naturalWidth
+                var initHeight=image.naturalHeight
+                if(initWidth>600||initHeight>600)
+                {
+                 if(initWidth>=initHeight)
+                    var maxSize=initWidth
+                    else
+                    var maxSize=initHeight
+
+                     var sizeRatio=600/maxSize
+                    BGImageWidth=initWidth*sizeRatio
+                    BGImageHeight=initHeight*sizeRatio
+
+                }
+                else
+                {
+                    BGImageWidth=image.naturalWidth
+                    BGImageHeight=image.naturalHeight
+                }
+
+
+                cw.bgImageWidthValue.value = BGImageWidth.toFixed(0)
+                cw.bgImageHeightValue.value = BGImageHeight.toFixed(0)
             }
-
-
         }
         , false);
 
